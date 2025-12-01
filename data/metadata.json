@@ -1,0 +1,46 @@
+[
+  {
+    "id": 1,
+    "name": "King Ravine - Line 1",
+    "difficulty": "Advanced",
+    "elevation_gain_m": 900,
+    "distance_km": 1.6,
+    "approach": "Park at trailhead X; ~2.2 km skin to the col.",
+    "season": "Dec - May (variable)",
+    "hazards": "Avalanche-prone; ice bands; objective hazard in spring.",
+    "notes": "Prototype description only — replace before publish."
+  },
+  {
+    "id": 2,
+    "name": "Castle Ravine - Line A",
+    "difficulty": "Advanced",
+    "elevation_gain_m": 850,
+    "distance_km": 1.4,
+    "approach": "Short steep approach from Castle Trailhead.",
+    "season": "Jan - Apr",
+    "hazards": "Rockfall risk late season; cornice hazard",
+    "notes": "Prototype description only."
+  },
+  {
+    "id": 3,
+    "name": "Jefferson Ravine - Direct",
+    "difficulty": "Advanced",
+    "elevation_gain_m": 1000,
+    "distance_km": 2.1,
+    "approach": "Long approach; requires alpine navigation and experience.",
+    "season": "Mar - May",
+    "hazards": "Exposure to winds; complex routefinding.",
+    "notes": "Prototype description only."
+  },
+  {
+    "id": 4,
+    "name": "Great Gulf - Bowl Left",
+    "difficulty": "Advanced",
+    "elevation_gain_m": 700,
+    "distance_km": 1.2,
+    "approach": "Approach from Gulf Trailhead; short steep skin.",
+    "season": "Dec - Apr",
+    "hazards": "Hidden rocks, avalanche terrain.",
+    "notes": "Prototype description only."
+  }
+]

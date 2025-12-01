@@ -1,0 +1,81 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1,
+        "name": "King Ravine - Line 1",
+        "difficulty": "Advanced",
+        "elevation_gain_m": 900,
+        "summary": "Steep NE-facing couloir with sustained pitch. Placeholder geometry.",
+        "source": "prototype"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-71.3160, 44.2700],
+          [-71.3170, 44.2685],
+          [-71.3180, 44.2670]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 2,
+        "name": "Castle Ravine - Line A",
+        "difficulty": "Advanced",
+        "elevation_gain_m": 850,
+        "summary": "Narrow chute with mixed snow/rock bands. Placeholder geometry.",
+        "source": "prototype"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-71.3205, 44.2550],
+          [-71.3220, 44.2530],
+          [-71.3235, 44.2505]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 3,
+        "name": "Jefferson Ravine - Direct",
+        "difficulty": "Advanced",
+        "elevation_gain_m": 1000,
+        "summary": "Long, exposed descent with complex routefinding. Placeholder geometry.",
+        "source": "prototype"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-71.3100, 44.2850],
+          [-71.3085, 44.2830],
+          [-71.3065, 44.2810]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 4,
+        "name": "Great Gulf - Bowl Left",
+        "difficulty": "Advanced",
+        "elevation_gain_m": 700,
+        "summary": "Protected bowl with variable terrain. Placeholder geometry.",
+        "source": "prototype"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-71.3055, 44.2605],
+          [-71.3040, 44.2580],
+          [-71.3030, 44.2560]
+        ]
+      }
+    }
+  ]
+}
