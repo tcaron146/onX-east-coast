@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>grandgully.kml</name>
+	<StyleMap id="msn_ylw-pushpin">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_ylw-pushpin</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_ylw-pushpin</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sh_ylw-pushpin">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<BalloonStyle>
+		</BalloonStyle>
+		<LineStyle>
+			<color>ffff0000</color>
+			<width>3</width>
+		</LineStyle>
+	</Style>
+	<Style id="sn_ylw-pushpin">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<BalloonStyle>
+		</BalloonStyle>
+		<LineStyle>
+			<color>ffff0000</color>
+			<width>3</width>
+		</LineStyle>
+	</Style>
+	<Placemark>
+		<name>4a</name>
+		<styleUrl>#msn_ylw-pushpin</styleUrl>
+		<LineString>
+			<tessellate>1</tessellate>
+			<coordinates>
+				-71.29550849698217,44.32794101629398,0 -71.29550963561475,44.32792836202783,0 -71.29550674637551,44.32791586628785,0 -71.29550366775945,44.3278868075318,0 -71.29549942990427,44.32787032099645,0 -71.2954921176249,44.32784510579146,0 -71.29548852646397,44.3278327220853,0 -71.29547768509813,44.32780212955118,0 -71.29547136264354,44.32777859653869,0 -71.29546262525804,44.32775957219489,0 -71.29545997059481,44.32774553322004,0 -71.29545549088066,44.3277273439005,0 -71.29545321606398,44.32770264320715,0 -71.29544858420849,44.32769070639018,0 -71.29543880744453,44.32766408298852,0 -71.29543157114679,44.32763996821547,0 -71.29542768272488,44.32762401090549,0 -71.29542091226563,44.32760883948359,0 -71.29541757243798,44.32759369186591,0 -71.29541224873995,44.3275723345628,0 -71.29540989906144,44.32755594592304,0 -71.2954071108695,44.32753947879729,0 -71.29540389551568,44.32752295036832,0 -71.29540129644084,44.32750709494889,0 -71.29540019962127,44.32749249382843,0 -71.29539733777209,44.32747701203633,0 -71.29539681016507,44.32746095099368,0 -71.29539636424693,44.32744737645006,0 -71.29539599695012,44.3274361971049,0 -71.295393390386,44.32742162940374,0 -71.29539341062257,44.32741521707101,0 -71.29539132421004,44.3274054661432,0 -71.29539138110519,44.3273949714912,0 -71.29538905447572,44.3273728581223,0 -71.29538917055567,44.32736068534783,0 -71.29538618945314,44.32735087161013,0 -71.29537719353689,44.32733767224268,0 -71.2953683072454,44.32732663139454,0 -71.29535959723559,44.32731577730873,0 
+			</coordinates>
+		</LineString>
+		<atom:link rel="app" href="https://www.google.com/earth/about/versions/#earth-pro" title="Google Earth Pro 7.3.6.10441"></atom:link>
+	</Placemark>
+</Document>
+</kml>

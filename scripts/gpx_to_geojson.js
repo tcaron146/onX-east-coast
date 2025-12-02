@@ -1,20 +1,26 @@
-// scripts/gpx_to_geojson.js
-// Usage: node gpx_to_geojson.js path/to/file.gpx
-const fs = require('fs');
-const tj = require('@tmcw/togeojson');
-const { DOMParser } = require('xmldom');
+fetch('../data/routes.geojson')
+  .then(res => res.json())
+  .then(data => {
+    // ensure FeatureCollection
+    const geojson = data.type === 'FeatureCollection' ? data : { type: 'FeatureCollection', features: data.features || [] };
 
-if (process.argv.length < 3) {
-  console.error('Usage: node gpx_to_geojson.js <file.gpx>');
-  process.exit(1);
-}
+    map.on('load', () => {
+      map.addSource('routes', { type: 'geojson', data: geojson });
+      map.addLayer({
+        id: 'route-lines',
+        type: 'line',
+        source: 'routes',
+        paint: { 'line-width': 3, 'line-color': '#ff0000' }
+      });
 
-const file = process.argv[2];
-const xml = fs.readFileSync(file, 'utf8');
-const doc = new DOMParser().parseFromString(xml, 'text/xml');
-const geojson = tj.gpx(doc);
+      map.on('click', 'route-lines', e => {
+        const props = e.features[0].properties || {};
+        const info = document.getElementById('info');
+        info.innerHTML = `<div class="route-title">${props.name || 'Unnamed Route'}</div>`;
+      });
 
-// write to same filename with .geojson
-const out = file.replace(/\.gpx$/i, '.geojson');
-fs.writeFileSync(out, JSON.stringify(geojson, null, 2));
-console.log('Wrote:', out);
+      map.on('mouseenter', 'route-lines', () => map.getCanvas().style.cursor = 'pointer');
+      map.on('mouseleave', 'route-lines', () => map.getCanvas().style.cursor = '');
+    });
+  })
+  .catch(err => console.error('Failed to load route data:', err));
