@@ -167,6 +167,138 @@
     "season": "Dec - Apr",
     "hazards": "Hidden rocks, avalanche terrain.",
     "notes": "Prototype description only."
+  },
+  {
+    "id": "GG-001",
+    "name": "airplane gully",
+    "difficulty": "Advanced",
+    "elevation_gain_m": 800,
+    "distance_km": 1.3,
+    "approach": "Approach via Jefferson Loop Trail to the southern gully base.",
+    "season": "Dec - Apr",
+    "hazards": "Hidden rocks, avalanche terrain.",
+    "notes": "Prototype description only."
+  },
+  {
+    "id": "GG-002",
+    "name": "carousel gully",
+    "difficulty": "Advanced",
+    "elevation_gain_m": 800,
+    "distance_km": 1.3,
+    "approach": "Approach via Jefferson Loop Trail to the southern gully base.",
+    "season": "Dec - Apr",
+    "hazards": "Hidden rocks, avalanche terrain.",
+    "notes": "Prototype description only."
+  },
+  {
+    "id": "GG-003",
+    "name": "drainpipe",
+    "difficulty": "Advanced",
+    "elevation_gain_m": 800,
+    "distance_km": 1.3,
+    "approach": "Approach via Jefferson Loop Trail to the southern gully base.",
+    "season": "Dec - Apr",
+    "hazards": "Hidden rocks, avalanche terrain.",
+    "notes": "Prototype description only."
+  },
+  {
+    "id": "GG-004",
+    "name": "junebug gully",
+    "difficulty": "Advanced",
+    "elevation_gain_m": 800,
+    "distance_km": 1.3,
+    "approach": "Approach via Jefferson Loop Trail to the southern gully base.",
+    "season": "Dec - Apr",
+    "hazards": "Hidden rocks, avalanche terrain.",
+    "notes": "Prototype description only."  
+  },
+  {
+    "id": "GG-005",
+    "name": "mother-in-law gully",
+    "difficulty": "Advanced",
+    "elevation_gain_m": 800,
+    "distance_km": 1.3,
+    "approach": "Approach via Jefferson Loop Trail to the southern gully base.",
+    "season": "Dec - Apr",
+    "hazards": "Hidden rocks, avalanche terrain.",
+    "notes": "Prototype description only."
+  },
+  {
+    "id": "GG-006",
+    "name": "pipeline gully",
+    "difficulty": "Advanced",
+    "elevation_gain_m": 800,
+    "distance_km": 1.3,
+    "approach": "Approach via Jefferson Loop Trail to the southern gully base.",
+    "season": "Dec - Apr",
+    "hazards": "Hidden rocks, avalanche terrain.",
+    "notes": "Prototype description only."
+  },
+  {
+    "id": "GG-007",
+    "name": "stinkbug gully",
+    "difficulty": "Advanced",
+    "elevation_gain_m": 800,
+    "distance_km": 1.3,
+    "approach": "Approach via Jefferson Loop Trail to the southern gully base.",
+    "season": "Dec - Apr",
+    "hazards": "Hidden rocks, avalanche terrain.",
+    "notes": "Prototype description only."
+  },
+  {
+    "id": "GG-008",
+    "name": "the hidden hallway",
+    "difficulty": "Advanced",
+    "elevation_gain_m": 800,
+    "distance_km": 1.3,
+    "approach": "Approach via Jefferson Loop Trail to the southern gully base.",
+    "season": "Dec - Apr",
+    "hazards": "Hidden rocks, avalanche terrain.",
+    "notes": "Prototype description only."
+  },
+  {
+    "id": "GG-009",
+    "name": "the spacewalk",
+    "difficulty": "Advanced",
+    "elevation_gain_m": 800,
+    "distance_km": 1.3,
+    "approach": "Approach via Jefferson Loop Trail to the southern gully base.",
+    "season": "Dec - Apr",
+    "hazards": "Hidden rocks, avalanche terrain.",
+    "notes": "Prototype description only."
+  },
+  {
+    "id": "GG-010",
+    "name": "turkey chute",
+    "difficulty": "Advanced",
+    "elevation_gain_m": 800,
+    "distance_km": 1.3,
+    "approach": "Approach via Jefferson Loop Trail to the southern gully base.",
+    "season": "Dec - Apr",
+    "hazards": "Hidden rocks, avalanche terrain.",
+    "notes": "Prototype description only."
+  },
+  {
+    "id": "GG-011",
+    "name": "turkey feather",
+    "difficulty": "Advanced",
+    "elevation_gain_m": 800,
+    "distance_km": 1.3,
+    "approach": "Approach via Jefferson Loop Trail to the southern gully base.",
+    "season": "Dec - Apr",
+    "hazards": "Hidden rocks, avalanche terrain.",
+    "notes": "Prototype description only."
+  },
+  {
+    "id": "GG-012",
+    "name": "activator gully",
+    "difficulty": "Advanced",
+    "elevation_gain_m": 800,
+    "distance_km": 1.3,
+    "approach": "Approach via Jefferson Loop Trail to the southern gully base.",
+    "season": "Dec - Apr",
+    "hazards": "Hidden rocks, avalanche terrain.",
+    "notes": "Prototype description only."
   }
 
 ]
