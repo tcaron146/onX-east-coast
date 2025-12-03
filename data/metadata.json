@@ -278,7 +278,11 @@
     "distance_km": 1.4,
     "approach": "From Great Gulf Trail, climb the main drainage until the obvious left-hand chute branches upward.",
     "season": "Dec - Apr",
-    "hazards": ["Hidden rocks", "Avalanche terrain", "Firm surface in midwinter"],
+    "hazards": [
+      "Hidden rocks",
+      "Avalanche terrain",
+      "Firm surface in midwinter"
+    ],
     "description": "One of the most classic lines in the Great Gulf. Broad lower apron leading into a steep, striking couloir that stays chalky in spring conditions. A direct fall-line skier's line with great visibility.",
     "rating": {
       "ski_grade": "S4",
@@ -314,7 +318,11 @@
     "distance_km": 1.3,
     "approach": "Ascend the drainage from Great Gulf Trail; Drainpipe branches climber’s right into a narrow rock-walled slot.",
     "season": "Dec - Apr",
-    "hazards": ["Tight rock constrictions", "Consequential fall potential", "Avalanche terrain"],
+    "hazards": [
+      "Tight rock constrictions",
+      "Consequential fall potential",
+      "Avalanche terrain"
+    ],
     "description": "A narrow, aesthetic chute with the tightest walls in the region. True couloir skiing with a sustained, consistent pitch that rarely opens up until the exit apron.",
     "rating": {
       "ski_grade": "S4+",
@@ -386,7 +394,11 @@
     "distance_km": 1.2,
     "approach": "Follow the Great Gulf drainage to a right-leaning upper fork beneath cliff bands.",
     "season": "Dec - Apr",
-    "hazards": ["Loose snow pockets", "Complex terrain", "Avalanche start zones"],
+    "hazards": [
+      "Loose snow pockets",
+      "Complex terrain",
+      "Avalanche start zones"
+    ],
     "description": "A narrow, technical gully with irregular walls and multiple micro-features. Great for strong skiers wanting something more playful but still committing.",
     "rating": {
       "ski_grade": "S4",
@@ -471,6 +483,96 @@
     "id": "GG-012",
     "zone": "Great Gulf",
     "name": "Activator Gully",
+    "difficulty": "Advanced",
+    "elevation_gain_m": 800,
+    "distance_km": 1.3,
+    "approach": "Enter the Great Gulf and trend toward the visually obvious center gully beneath the cliff wall.",
+    "season": "Dec - Apr",
+    "hazards": ["Avalanche terrain", "Exposed upper section"],
+    "description": "A dynamic line with rolling terrain features, strong overhead hazard, and a steep upper funnel. Very conditions-dependent.",
+    "rating": {
+      "ski_grade": "S4+",
+      "steepness_deg": 42,
+      "exposure": "High"
+    },
+    "photos": []
+  },
+  {
+    "id": "BR-001",
+    "zone": "Burt Ravine",
+    "name": "north branch",
+    "difficulty": "Advanced",
+    "elevation_gain_m": 800,
+    "distance_km": 1.3,
+    "approach": "Enter the Great Gulf and trend toward the visually obvious center gully beneath the cliff wall.",
+    "season": "Dec - Apr",
+    "hazards": ["Avalanche terrain", "Exposed upper section"],
+    "description": "A dynamic line with rolling terrain features, strong overhead hazard, and a steep upper funnel. Very conditions-dependent.",
+    "rating": {
+      "ski_grade": "S4+",
+      "steepness_deg": 42,
+      "exposure": "High"
+    },
+    "photos": []
+  },
+  {
+    "id": "BR-002",
+    "zone": "Burt Ravine",
+    "name": "south branch",
+    "difficulty": "Advanced",
+    "elevation_gain_m": 800,
+    "distance_km": 1.3,
+    "approach": "Enter the Great Gulf and trend toward the visually obvious center gully beneath the cliff wall.",
+    "season": "Dec - Apr",
+    "hazards": ["Avalanche terrain", "Exposed upper section"],
+    "description": "A dynamic line with rolling terrain features, strong overhead hazard, and a steep upper funnel. Very conditions-dependent.",
+    "rating": {
+      "ski_grade": "S4+",
+      "steepness_deg": 42,
+      "exposure": "High"
+    },
+    "photos": []
+  },
+  {
+    "id": "AR_001",
+    "zone": "Ammonoosuc Ravine",
+    "name": "south gully",
+    "difficulty": "Advanced",
+    "elevation_gain_m": 800,
+    "distance_km": 1.3,
+    "approach": "Enter the Great Gulf and trend toward the visually obvious center gully beneath the cliff wall.",
+    "season": "Dec - Apr",
+    "hazards": ["Avalanche terrain", "Exposed upper section"],
+    "description": "A dynamic line with rolling terrain features, strong overhead hazard, and a steep upper funnel. Very conditions-dependent.",
+    "rating": {
+      "ski_grade": "S4+",
+      "steepness_deg": 42,
+      "exposure": "High"
+    },
+    "photos": []
+  },
+  {
+    "id": "AR_002",
+    "zone": "Ammonoosuc Ravine",
+    "name": "north branch",
+    "difficulty": "Advanced",
+    "elevation_gain_m": 800,
+    "distance_km": 1.3,
+    "approach": "Enter the Great Gulf and trend toward the visually obvious center gully beneath the cliff wall.",
+    "season": "Dec - Apr",
+    "hazards": ["Avalanche terrain", "Exposed upper section"],
+    "description": "A dynamic line with rolling terrain features, strong overhead hazard, and a steep upper funnel. Very conditions-dependent.",
+    "rating": {
+      "ski_grade": "S4+",
+      "steepness_deg": 42,
+      "exposure": "High"
+    },
+    "photos": []
+  },
+  {
+    "id": "AR_003",
+    "zone": "Ammonoosuc Ravine",
+    "name": "central gully",
     "difficulty": "Advanced",
     "elevation_gain_m": 800,
     "distance_km": 1.3,
