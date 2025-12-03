@@ -694,5 +694,95 @@
       "exposure": "High"
     },
     "photos": []
+  },
+  {
+    "id": "WC_001",
+    "zone": "Webster Cliffs",
+    "name": "central couloir",
+    "difficulty": "Advanced",
+    "elevation_gain_m": 800,
+    "distance_km": 1.3,
+    "approach": "Enter the Great Gulf and trend toward the visually obvious center gully beneath the cliff wall.",
+    "season": "Dec - Apr",
+    "hazards": ["Avalanche terrain", "Exposed upper section"],
+    "description": "A dynamic line with rolling terrain features, strong overhead hazard, and a steep upper funnel. Very conditions-dependent.",
+    "rating": {
+      "ski_grade": "S4+",
+      "steepness_deg": 42,
+      "exposure": "High"
+    },
+    "photos": []
+  },
+  {
+    "id": "WC_002",
+    "zone": "Webster Cliffs",
+    "name": "shoestring gully",
+    "difficulty": "Advanced",
+    "elevation_gain_m": 800,
+    "distance_km": 1.3,
+    "approach": "Enter the Great Gulf and trend toward the visually obvious center gully beneath the cliff wall.",
+    "season": "Dec - Apr",
+    "hazards": ["Avalanche terrain", "Exposed upper section"],
+    "description": "A dynamic line with rolling terrain features, strong overhead hazard, and a steep upper funnel. Very conditions-dependent.",
+    "rating": {
+      "ski_grade": "S4+",
+      "steepness_deg": 42,
+      "exposure": "High"
+    },
+    "photos": []
+  },
+  {
+    "id": "WC_003",
+    "zone": "Webster Cliffs",
+    "name": "greens chasm",
+    "difficulty": "Advanced",
+    "elevation_gain_m": 800,
+    "distance_km": 1.3,
+    "approach": "Enter the Great Gulf and trend toward the visually obvious center gully beneath the cliff wall.",
+    "season": "Dec - Apr",
+    "hazards": ["Avalanche terrain", "Exposed upper section"],
+    "description": "A dynamic line with rolling terrain features, strong overhead hazard, and a steep upper funnel. Very conditions-dependent.",
+    "rating": {
+      "ski_grade": "S4+",
+      "steepness_deg": 42,
+      "exposure": "High"
+    },
+    "photos": []
+  },
+  {
+    "id": "WC_004",
+    "zone": "Webster Cliffs",
+    "name": "mountaineers route",
+    "difficulty": "Advanced",
+    "elevation_gain_m": 800,
+    "distance_km": 1.3,
+    "approach": "Enter the Great Gulf and trend toward the visually obvious center gully beneath the cliff wall.",
+    "season": "Dec - Apr",
+    "hazards": ["Avalanche terrain", "Exposed upper section"],
+    "description": "A dynamic line with rolling terrain features, strong overhead hazard, and a steep upper funnel. Very conditions-dependent.",
+    "rating": {
+      "ski_grade": "S4+",
+      "steepness_deg": 42,
+      "exposure": "High"
+    },
+    "photos": []
+  },
+  {
+    "id": "WC_005",
+    "zone": "Webster Cliffs",
+    "name": "landslide gully",
+    "difficulty": "Advanced",
+    "elevation_gain_m": 800,
+    "distance_km": 1.3,
+    "approach": "Enter the Great Gulf and trend toward the visually obvious center gully beneath the cliff wall.",
+    "season": "Dec - Apr",
+    "hazards": ["Avalanche terrain", "Exposed upper section"],
+    "description": "A dynamic line with rolling terrain features, strong overhead hazard, and a steep upper funnel. Very conditions-dependent.",
+    "rating": {
+      "ski_grade": "S4+",
+      "steepness_deg": 42,
+      "exposure": "High"
+    },
+    "photos": []
   }
 ]
