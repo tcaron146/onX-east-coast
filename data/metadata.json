@@ -4,785 +4,917 @@
     "zone": "King Ravine",
     "name": "East Gully",
     "difficulty": "Advanced",
-    "elevation_gain_m": 305,
-    "distance_km": 1.6,
-    "approach": "King Ravine Trail to Great Gully Trail",
-    "season": "Dec - May",
-    "hazards": ["Avalanche terrain", "Rockfall"],
-    "description": "A classic King Ravine gully with moderate sustained steepness and a narrow constriction near mid-line.",
+    "vertical_drop": 1086.0,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "N",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4",
       "steepness_deg": 40,
       "exposure": "Moderate"
-    },
-    "photos": []
+    }
   },
   {
     "id": "KR-002",
     "zone": "King Ravine",
     "name": "Great Gully (Lower)",
     "difficulty": "Advanced",
-    "elevation_gain_m": 850,
-    "distance_km": 1.4,
-    "approach": "Short steep approach from Lowe’s Path.",
-    "season": "Jan - Apr",
-    "hazards": ["Rockfall (late season)", "Cornice hazard"],
-    "description": "Lower section of Great Gully featuring sustained climbing and a broad upper fan that can carry overhead hazard.",
+    "vertical_drop": 321.5,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "NE",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4",
       "steepness_deg": 42,
       "exposure": "High"
-    },
-    "photos": []
+    }
   },
   {
     "id": "KR-003",
     "zone": "King Ravine",
     "name": "Iced Out",
     "difficulty": "Advanced",
-    "elevation_gain_m": 1000,
-    "distance_km": 2.1,
-    "approach": "Long approach via Lowe’s Path; requires alpine navigation.",
-    "season": "Mar - May",
-    "hazards": ["Wind exposure", "Complex routefinding"],
-    "description": "A long, exposed line with variable snow surfaces and high wind exposure. Navigation skill required.",
+    "vertical_drop": 905.5,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "N",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4+",
       "steepness_deg": 43,
       "exposure": "High"
-    },
-    "photos": []
+    }
   },
   {
     "id": "KR-004",
     "zone": "King Ravine",
     "name": "The Muffin",
     "difficulty": "Advanced",
-    "elevation_gain_m": 700,
-    "distance_km": 1.2,
-    "approach": "Approach from King Ravine Trail.",
-    "season": "Dec - Apr",
-    "hazards": ["Hidden rocks", "Avalanche terrain"],
-    "description": "A compact line that funnels into a narrow midsection, often with firm or thin snow coverage.",
+    "vertical_drop": 413.4,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "N",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4",
       "steepness_deg": 41,
       "exposure": "Moderate"
-    },
-    "photos": []
+    }
   },
   {
     "id": "KR-005",
     "zone": "King Ravine",
     "name": "Narrow Gully",
     "difficulty": "Advanced",
-    "elevation_gain_m": 700,
-    "distance_km": 1.2,
-    "approach": "Approach from King Ravine Trail.",
-    "season": "Dec - Apr",
-    "hazards": ["Hidden rocks", "Avalanche terrain"],
-    "description": "True to its name, this gully tightens significantly and offers one of the more enclosed descents in the ravine.",
+    "vertical_drop": 803.8,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4",
       "steepness_deg": 42,
       "exposure": "Moderate"
-    },
-    "photos": []
+    }
   },
   {
     "id": "KR-006",
     "zone": "King Ravine",
     "name": "Great Gully",
     "difficulty": "Advanced",
-    "elevation_gain_m": 700,
-    "distance_km": 1.2,
-    "approach": "Approach from King Ravine Trail.",
-    "season": "Dec - Apr",
-    "hazards": ["Hidden rocks", "Avalanche terrain"],
-    "description": "The main Great Gully route: wide lower slopes with a steep upper pinch that holds snow late into the spring.",
+    "vertical_drop": 1056.4,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "NE",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4",
       "steepness_deg": 41,
       "exposure": "Moderate"
-    },
-    "photos": []
+    }
   },
   {
     "id": "KR-007",
     "zone": "King Ravine",
     "name": "West Gully",
     "difficulty": "Advanced",
-    "elevation_gain_m": 700,
-    "distance_km": 1.2,
-    "approach": "Approach from King Ravine Trail.",
-    "season": "Dec - Apr",
-    "hazards": ["Hidden rocks", "Avalanche terrain"],
-    "description": "A less-traveled western branch offering strong morning light and a slightly more direct fall line.",
+    "vertical_drop": 718.5,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "NE",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4",
       "steepness_deg": 40,
       "exposure": "Moderate"
-    },
-    "photos": []
+    }
   },
   {
     "id": "CAS-001",
     "zone": "Castle Ravine",
     "name": "Baby Sister",
     "difficulty": "Advanced",
-    "elevation_gain_m": 450,
-    "distance_km": 1.1,
-    "approach": "Approach via Castle Trail into the floor of Castle Ravine.",
-    "season": "Jan – Apr",
-    "hazards": ["Avalanche terrain", "Ice bulges", "Firm surfaces"],
-    "description": "The shortest and most approachable of the Sister gullies, offering a clean apron and moderate sustained pitch.",
+    "vertical_drop": 951.4,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "NW",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S3+",
       "steepness_deg": 38,
       "exposure": "Low"
-    },
-    "photos": []
+    }
   },
   {
     "id": "CAS-002",
     "zone": "Castle Ravine",
     "name": "Middle Sister",
     "difficulty": "Advanced",
-    "elevation_gain_m": 500,
-    "distance_km": 1.2,
-    "approach": "Castle Trail to the central drainage of Castle Ravine.",
-    "season": "Jan – Apr",
-    "hazards": ["Rockfall", "Ice bulges", "Avalanche-prone upper fan"],
-    "description": "The central Sister with a steeper midsection and more sustained climbing and skiing than Baby Sister.",
+    "vertical_drop": 485.5,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "NE",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4",
       "steepness_deg": 40,
       "exposure": "Moderate"
-    },
-    "photos": []
+    }
   },
   {
     "id": "CAS-003",
     "zone": "Castle Ravine",
     "name": "South Sister",
     "difficulty": "Advanced",
-    "elevation_gain_m": 550,
-    "distance_km": 1.3,
-    "approach": "Castle Trail then ascend to the southern fork of the ravine.",
-    "season": "Jan – Apr",
-    "hazards": ["Cross-loaded slabs", "Ice bulges", "Overhead cliff hazards"],
-    "description": "A narrower, more aesthetic gully with a steep upper throat and more technical feel.",
+    "vertical_drop": 515.1,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "N",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4",
       "steepness_deg": 41,
       "exposure": "High"
-    },
-    "photos": []
+    }
   },
   {
     "id": "CAS-004",
     "zone": "Castle Ravine",
     "name": "North Sister",
     "difficulty": "Advanced",
-    "elevation_gain_m": 600,
-    "distance_km": 1.4,
-    "approach": "Castle Trail to northern branch of Castle Ravine.",
-    "season": "Jan – Apr",
-    "hazards": ["Avalanche exposure", "Cornice hazards"],
-    "description": "The longest and most committing Sister, with a rolling upper headwall and complex snowpacks.",
+    "vertical_drop": 839.9,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "NE",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4+",
       "steepness_deg": 42,
       "exposure": "High"
-    },
-    "photos": []
+    }
   },
   {
     "id": "JEF-001",
     "zone": "Jefferson Ravine",
-    "name": "Central Couloir",
+    "name": "Abbys Way",
     "difficulty": "Advanced",
-    "elevation_gain_m": 900,
-    "distance_km": 1.5,
-    "approach": "Approach via Jefferson Loop Trail.",
-    "season": "Dec - Apr",
-    "hazards": ["Rockfall", "Avalanche terrain"],
-    "description": "A long, straight fall-line couloir cutting through the center of Jefferson Ravine; steepest near the top.",
+    "vertical_drop": 1099.1,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "S",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4+",
       "steepness_deg": 43,
       "exposure": "High"
-    },
-    "photos": []
+    }
   },
   {
     "id": "JEF-002",
     "zone": "Jefferson Ravine",
     "name": "Jefferson Headwall",
     "difficulty": "Advanced",
-    "elevation_gain_m": 850,
-    "distance_km": 1.4,
-    "approach": "Approach via Jefferson Loop Trail.",
-    "season": "Dec - Apr",
-    "hazards": ["Rockfall", "Avalanche terrain"],
-    "description": "The iconic headwall of Mount Jefferson: wide, steep, and wind-loaded with significant exposure.",
+    "vertical_drop": 554.5,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "E",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S5",
       "steepness_deg": 45,
       "exposure": "High"
-    },
-    "photos": []
+    }
   },
   {
     "id": "JEF-003",
     "zone": "Jefferson Ravine",
     "name": "Stealth Gully",
     "difficulty": "Advanced",
-    "elevation_gain_m": 800,
-    "distance_km": 1.3,
-    "approach": "Approach via Jefferson Loop Trail.",
-    "season": "Dec - Apr",
-    "hazards": ["Hidden rocks", "Avalanche terrain"],
-    "description": "A tucked-away gully with narrow rock walls and a steep sustained pitch.",
+    "vertical_drop": 921.9,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "NE",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4+",
       "steepness_deg": 42,
       "exposure": "Moderate"
-    },
-    "photos": []
+    }
   },
   {
     "id": "JEF-004",
     "zone": "Jefferson Ravine",
     "name": "The Beach",
     "difficulty": "Advanced",
-    "elevation_gain_m": 800,
-    "distance_km": 1.3,
-    "approach": "Approach via Jefferson Loop Trail.",
-    "season": "Dec - Apr",
-    "hazards": ["Avalanche terrain"],
-    "description": "A wide, lower-angle gully with playful terrain and a more forgiving apron.",
+    "vertical_drop": 187.0,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "E",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S3+",
       "steepness_deg": 36,
       "exposure": "Low"
-    },
-    "photos": []
+    }
   },
   {
     "id": "GG-001",
     "zone": "Great Gulf",
     "name": "Airplane Gully",
     "difficulty": "Advanced",
-    "elevation_gain_m": 820,
-    "distance_km": 1.4,
-    "approach": "From Great Gulf Trail, climb the main drainage until the obvious left-hand chute branches upward.",
-    "season": "Dec - Apr",
+    "vertical_drop": 836.7,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "NE",
     "hazards": [
-      "Hidden rocks",
-      "Avalanche terrain",
-      "Firm surface in midwinter"
+      ""
     ],
-    "description": "One of the most classic lines in the Great Gulf. Broad lower apron leading into a steep, striking couloir that stays chalky in spring conditions. A direct fall-line skier's line with great visibility.",
+    "description": "",
     "rating": {
-      "ski_grade": "S4",
       "steepness_deg": 40,
       "exposure": "Moderate"
-    },
-    "photos": []
+    }
   },
   {
     "id": "GG-002",
     "zone": "Great Gulf",
     "name": "Carousel Gully",
     "difficulty": "Advanced",
-    "elevation_gain_m": 810,
-    "distance_km": 1.4,
-    "approach": "Follow the Great Gulf Trail, then ascend into the large central bowl beneath Jefferson.",
-    "season": "Dec - Apr",
-    "hazards": ["Avalanche start zones", "Cornice exposure", "Hidden ice"],
-    "description": "A mellower-feeling Great Gulf line with playful terrain and a rounded upper bowl. Excellent mid-winter powder skiing when conditions align.",
+    "vertical_drop": 196.9,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "N",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S3+",
       "steepness_deg": 37,
       "exposure": "Low"
-    },
-    "photos": []
+    }
   },
   {
     "id": "GG-003",
     "zone": "Great Gulf",
     "name": "Drainpipe",
     "difficulty": "Advanced",
-    "elevation_gain_m": 830,
-    "distance_km": 1.3,
-    "approach": "Ascend the drainage from Great Gulf Trail; Drainpipe branches climber’s right into a narrow rock-walled slot.",
-    "season": "Dec - Apr",
+    "vertical_drop": 695.5,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "NE",
     "hazards": [
-      "Tight rock constrictions",
-      "Consequential fall potential",
-      "Avalanche terrain"
+      ""
     ],
-    "description": "A narrow, aesthetic chute with the tightest walls in the region. True couloir skiing with a sustained, consistent pitch that rarely opens up until the exit apron.",
+    "description": "",
     "rating": {
-      "ski_grade": "S4+",
       "steepness_deg": 43,
       "exposure": "High"
-    },
-    "photos": []
+    }
   },
   {
     "id": "GG-004",
     "zone": "Great Gulf",
     "name": "Junebug Gully",
     "difficulty": "Advanced",
-    "elevation_gain_m": 780,
-    "distance_km": 1.3,
-    "approach": "Leave the Great Gulf Trail near the central drainage and follow the skier’s left gully upward.",
-    "season": "Dec - Apr",
-    "hazards": ["Avalanche terrain", "Rock shelves", "Hidden ice"],
-    "description": "An approachable yet rewarding line with multiple terrain features, small rollovers, and a moderate upper headwall. Often skis well in March.",
+    "vertical_drop": 357.6,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "N",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S3+",
       "steepness_deg": 36,
       "exposure": "Low"
-    },
-    "photos": []
+    }
   },
   {
     "id": "GG-005",
     "zone": "Great Gulf",
     "name": "Mother-in-Law Gully",
     "difficulty": "Advanced",
-    "elevation_gain_m": 820,
-    "distance_km": 1.3,
-    "approach": "From the Great Gulf Trail, trend climber’s right toward the larger northern faces beneath Jefferson.",
-    "season": "Dec - Apr",
-    "hazards": ["Cross-loaded slopes", "Rockfall", "Avalanche terrain"],
-    "description": "A steep, aesthetic gully with a wide upper fan and a committing midsection. Less popular than Airplane but equally classic in the right snowpack.",
+    "vertical_drop": 1591.2,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "NW",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4",
       "steepness_deg": 41,
       "exposure": "Moderate"
-    },
-    "photos": []
+    }
   },
   {
     "id": "GG-006",
     "zone": "Great Gulf",
     "name": "Pipeline Gully",
     "difficulty": "Advanced",
-    "elevation_gain_m": 800,
-    "distance_km": 1.3,
-    "approach": "Ascend the prominent drainage and look for the narrow central slot splitting the main face.",
-    "season": "Dec - Apr",
-    "hazards": ["Constricted upper throat", "Avalanche hazard", "Hard snow"],
-    "description": "A tight, consistently steep line resembling a true couloir. Often holds firmer snow and requires strong edge control.",
+    "vertical_drop": 935.1,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "E",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4+",
       "steepness_deg": 42,
       "exposure": "High"
-    },
-    "photos": []
+    }
   },
   {
     "id": "GG-007",
     "zone": "Great Gulf",
     "name": "Stinkbug Gully",
     "difficulty": "Advanced",
-    "elevation_gain_m": 790,
-    "distance_km": 1.2,
-    "approach": "Follow the Great Gulf drainage to a right-leaning upper fork beneath cliff bands.",
-    "season": "Dec - Apr",
+    "vertical_drop": 498.7,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "NE",
     "hazards": [
-      "Loose snow pockets",
-      "Complex terrain",
-      "Avalanche start zones"
+      "CD"
     ],
-    "description": "A narrow, technical gully with irregular walls and multiple micro-features. Great for strong skiers wanting something more playful but still committing.",
+    "description": "",
     "rating": {
-      "ski_grade": "S4",
       "steepness_deg": 40,
       "exposure": "Moderate"
-    },
-    "photos": []
+    }
   },
   {
     "id": "GG-008",
     "zone": "Great Gulf",
     "name": "The Hidden Hallway",
     "difficulty": "Advanced",
-    "elevation_gain_m": 800,
-    "distance_km": 1.3,
-    "approach": "Navigate toward the north-facing alcove above the drainage; the Hallway is not visible until deep in the basin.",
-    "season": "Dec - Apr",
-    "hazards": ["Blind rollovers", "Rockfall", "Avalanche terrain"],
-    "description": "A tucked-away and hard-to-spot line with a mysterious feel and maze-like terrain. Excellent snow preservation due to shading.",
+    "vertical_drop": 1056.5,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "E",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4",
       "steepness_deg": 39,
       "exposure": "Moderate"
-    },
-    "photos": []
+    }
   },
   {
     "id": "GG-009",
     "zone": "Great Gulf",
     "name": "The Spacewalk",
     "difficulty": "Advanced",
-    "elevation_gain_m": 840,
-    "distance_km": 1.3,
-    "approach": "Approach via the main Great Gulf drainage, then trend toward the broad upper ramp system.",
-    "season": "Dec - Apr",
-    "hazards": ["Exposure to cliffs", "Avalanche-prone upper slabs"],
-    "description": "A large, airy gully with sweeping open slopes. Feels bigger than most Great Gulf lines and offers dynamic fall-line skiing.",
+    "vertical_drop": 377.3,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "N",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4+",
       "steepness_deg": 43,
       "exposure": "High"
-    },
-    "photos": []
+    }
   },
   {
     "id": "GG-010",
     "zone": "Great Gulf",
     "name": "Turkey Chute",
     "difficulty": "Advanced",
-    "elevation_gain_m": 760,
-    "distance_km": 1.2,
-    "approach": "Leave the Great Gulf Trail at the mid-drainage and ascend into the right-hand branch.",
-    "season": "Dec - Apr",
-    "hazards": ["Avalanche terrain", "Hidden rocks"],
-    "description": "A fun, narrow gully with a playful midsection and moderate steepness. Often accessible slightly earlier in the season.",
+    "vertical_drop": 711.9,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "NE",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S3+",
       "steepness_deg": 36,
       "exposure": "Low"
-    },
-    "photos": []
+    }
   },
   {
     "id": "GG-011",
     "zone": "Great Gulf",
     "name": "Turkey Feather",
     "difficulty": "Advanced",
-    "elevation_gain_m": 770,
-    "distance_km": 1.2,
-    "approach": "Parallel approach to Turkey Chute, but branch climber’s right at the upper fork.",
-    "season": "Dec - Apr",
-    "hazards": ["Thin coverage", "Avalanche-prone slabs"],
-    "description": "A slightly steeper and more direct sibling to Turkey Chute, with a firmer upper pitch and a tighter midsection.",
+    "vertical_drop": 626.6,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "NE",
+    "hazards": [
+      "T"
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4",
       "steepness_deg": 39,
       "exposure": "Moderate"
-    },
-    "photos": []
+    }
   },
   {
     "id": "GG-012",
     "zone": "Great Gulf",
     "name": "Activator Gully",
     "difficulty": "Advanced",
-    "elevation_gain_m": 800,
-    "distance_km": 1.3,
-    "approach": "Enter the Great Gulf and trend toward the visually obvious center gully beneath the cliff wall.",
-    "season": "Dec - Apr",
-    "hazards": ["Avalanche terrain", "Exposed upper section"],
-    "description": "A dynamic line with rolling terrain features, strong overhead hazard, and a steep upper funnel. Very conditions-dependent.",
+    "vertical_drop": 997.4,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "E",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4+",
       "steepness_deg": 42,
       "exposure": "High"
-    },
-    "photos": []
+    }
   },
   {
     "id": "BR-001",
     "zone": "Burt Ravine",
     "name": "north branch",
     "difficulty": "Advanced",
-    "elevation_gain_m": 800,
-    "distance_km": 1.3,
-    "approach": "Enter the Great Gulf and trend toward the visually obvious center gully beneath the cliff wall.",
-    "season": "Dec - Apr",
-    "hazards": ["Avalanche terrain", "Exposed upper section"],
-    "description": "A dynamic line with rolling terrain features, strong overhead hazard, and a steep upper funnel. Very conditions-dependent.",
+    "vertical_drop": 1870.1,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "W",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4+",
       "steepness_deg": 42,
       "exposure": "High"
-    },
-    "photos": []
+    }
   },
   {
     "id": "BR-002",
     "zone": "Burt Ravine",
     "name": "south branch",
     "difficulty": "Advanced",
-    "elevation_gain_m": 800,
-    "distance_km": 1.3,
-    "approach": "Enter the Great Gulf and trend toward the visually obvious center gully beneath the cliff wall.",
-    "season": "Dec - Apr",
-    "hazards": ["Avalanche terrain", "Exposed upper section"],
-    "description": "A dynamic line with rolling terrain features, strong overhead hazard, and a steep upper funnel. Very conditions-dependent.",
+    "vertical_drop": 1939.0,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "W",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4+",
       "steepness_deg": 42,
       "exposure": "High"
-    },
-    "photos": []
+    }
   },
   {
     "id": "AR_001",
     "zone": "Ammonoosuc Ravine",
     "name": "south gully",
     "difficulty": "Advanced",
-    "elevation_gain_m": 800,
-    "distance_km": 1.3,
-    "approach": "Enter the Great Gulf and trend toward the visually obvious center gully beneath the cliff wall.",
-    "season": "Dec - Apr",
-    "hazards": ["Avalanche terrain", "Exposed upper section"],
-    "description": "A dynamic line with rolling terrain features, strong overhead hazard, and a steep upper funnel. Very conditions-dependent.",
+    "vertical_drop": 1063.0,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "W",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4+",
       "steepness_deg": 42,
       "exposure": "High"
-    },
-    "photos": []
+    }
   },
   {
     "id": "AR_002",
     "zone": "Ammonoosuc Ravine",
     "name": "north branch",
     "difficulty": "Advanced",
-    "elevation_gain_m": 800,
-    "distance_km": 1.3,
-    "approach": "Enter the Great Gulf and trend toward the visually obvious center gully beneath the cliff wall.",
-    "season": "Dec - Apr",
-    "hazards": ["Avalanche terrain", "Exposed upper section"],
-    "description": "A dynamic line with rolling terrain features, strong overhead hazard, and a steep upper funnel. Very conditions-dependent.",
+    "vertical_drop": 1561.7,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "W",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4+",
       "steepness_deg": 42,
       "exposure": "High"
-    },
-    "photos": []
+    }
   },
   {
     "id": "AR_003",
     "zone": "Ammonoosuc Ravine",
     "name": "central gully",
     "difficulty": "Advanced",
-    "elevation_gain_m": 800,
-    "distance_km": 1.3,
-    "approach": "Enter the Great Gulf and trend toward the visually obvious center gully beneath the cliff wall.",
-    "season": "Dec - Apr",
-    "hazards": ["Avalanche terrain", "Exposed upper section"],
-    "description": "A dynamic line with rolling terrain features, strong overhead hazard, and a steep upper funnel. Very conditions-dependent.",
+    "vertical_drop": 1151.6,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "W",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4+",
       "steepness_deg": 42,
       "exposure": "High"
-    },
-    "photos": []
+    }
   },
   {
     "id": "MB-001",
     "zone": "Monroe Brook",
     "name": "monroe brook 1",
     "difficulty": "Advanced",
-    "elevation_gain_m": 800,
-    "distance_km": 1.3,
-    "approach": "Enter the Great Gulf and trend toward the visually obvious center gully beneath the cliff wall.",
-    "season": "Dec - Apr",
-    "hazards": ["Avalanche terrain", "Exposed upper section"],
-    "description": "A dynamic line with rolling terrain features, strong overhead hazard, and a steep upper funnel. Very conditions-dependent.",
+    "vertical_drop": 1259.9,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "NW",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4+",
       "steepness_deg": 42,
       "exposure": "High"
-    },
-    "photos": []
+    }
   },
   {
     "id": "MB-002",
     "zone": "Monroe Brook",
     "name": "monroe brook 2",
     "difficulty": "Advanced",
-    "elevation_gain_m": 800,
-    "distance_km": 1.3,
-    "approach": "Enter the Great Gulf and trend toward the visually obvious center gully beneath the cliff wall.",
-    "season": "Dec - Apr",
-    "hazards": ["Avalanche terrain", "Exposed upper section"],
-    "description": "A dynamic line with rolling terrain features, strong overhead hazard, and a steep upper funnel. Very conditions-dependent.",
+    "vertical_drop": 216.5,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "NW",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4+",
       "steepness_deg": 42,
       "exposure": "High"
-    },
-    "photos": []
+    }
   },
   {
     "id": "MF_001",
-    "name": "bifocal gully",
     "zone": "Mount Franklin",
+    "name": "bifocal gully",
     "difficulty": "Advanced",
-    "elevation_gain_m": 800,
-    "distance_km": 1.3,
-    "approach": "Enter the Great Gulf and trend toward the visually obvious center gully beneath the cliff wall.",
-    "season": "Dec - Apr",
-    "hazards": ["Avalanche terrain", "Exposed upper section"],
-    "description": "A dynamic line with rolling terrain features, strong overhead hazard, and a steep upper funnel. Very conditions-dependent.",
+    "vertical_drop": 469.1,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "SE",
+    "hazards": [
+      "CD"
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4+",
       "steepness_deg": 42,
       "exposure": "High"
-    },
-    "photos": []
+    }
   },
   {
     "id": "MF_002",
-    "name": "southern snowfields",
     "zone": "Mount Franklin",
+    "name": "southern snowfields",
     "difficulty": "Advanced",
-    "elevation_gain_m": 800,
-    "distance_km": 1.3,
-    "approach": "Enter the Great Gulf and trend toward the visually obvious center gully beneath the cliff wall.",
-    "season": "Dec - Apr",
-    "hazards": ["Avalanche terrain", "Exposed upper section"],
-    "description": "A dynamic line with rolling terrain features, strong overhead hazard, and a steep upper funnel. Very conditions-dependent.",
+    "vertical_drop": 600.4,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "S",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4+",
       "steepness_deg": 42,
       "exposure": "High"
-    },
-    "photos": []
+    }
   },
   {
     "id": "MF_003",
-    "name": "franklin headwall",
     "zone": "Mount Franklin",
+    "name": "franklin headwall",
     "difficulty": "Advanced",
-    "elevation_gain_m": 800,
-    "distance_km": 1.3,
-    "approach": "Enter the Great Gulf and trend toward the visually obvious center gully beneath the cliff wall.",
-    "season": "Dec - Apr",
-    "hazards": ["Avalanche terrain", "Exposed upper section"],
-    "description": "A dynamic line with rolling terrain features, strong overhead hazard, and a steep upper funnel. Very conditions-dependent.",
+    "vertical_drop": 534.8,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "SE",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4+",
       "steepness_deg": 42,
       "exposure": "High"
-    },
-    "photos": []
+    }
   },
   {
     "id": "MF_004",
-    "name": "kite string couloir",
     "zone": "Mount Franklin",
+    "name": "kite string couloir",
     "difficulty": "Advanced",
-    "elevation_gain_m": 800,
-    "distance_km": 1.3,
-    "approach": "Enter the Great Gulf and trend toward the visually obvious center gully beneath the cliff wall.",
-    "season": "Dec - Apr",
-    "hazards": ["Avalanche terrain", "Exposed upper section"],
-    "description": "A dynamic line with rolling terrain features, strong overhead hazard, and a steep upper funnel. Very conditions-dependent.",
+    "vertical_drop": 590.6,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "SE",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4+",
       "steepness_deg": 42,
       "exposure": "High"
-    },
-    "photos": []
+    }
   },
   {
     "id": "WC_001",
     "zone": "Webster Cliffs",
     "name": "central couloir",
     "difficulty": "Advanced",
-    "elevation_gain_m": 800,
-    "distance_km": 1.3,
-    "approach": "Enter the Great Gulf and trend toward the visually obvious center gully beneath the cliff wall.",
-    "season": "Dec - Apr",
-    "hazards": ["Avalanche terrain", "Exposed upper section"],
-    "description": "A dynamic line with rolling terrain features, strong overhead hazard, and a steep upper funnel. Very conditions-dependent.",
+    "vertical_drop": 1591.2,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "SW",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4+",
       "steepness_deg": 42,
       "exposure": "High"
-    },
-    "photos": []
+    }
   },
   {
     "id": "WC_002",
     "zone": "Webster Cliffs",
     "name": "shoestring gully",
     "difficulty": "Advanced",
-    "elevation_gain_m": 800,
-    "distance_km": 1.3,
-    "approach": "Enter the Great Gulf and trend toward the visually obvious center gully beneath the cliff wall.",
-    "season": "Dec - Apr",
-    "hazards": ["Avalanche terrain", "Exposed upper section"],
-    "description": "A dynamic line with rolling terrain features, strong overhead hazard, and a steep upper funnel. Very conditions-dependent.",
+    "vertical_drop": 1499.3,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "SW",
+    "hazards": [
+      "T"
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4+",
       "steepness_deg": 42,
       "exposure": "High"
-    },
-    "photos": []
+    }
   },
   {
     "id": "WC_003",
     "zone": "Webster Cliffs",
     "name": "greens chasm",
     "difficulty": "Advanced",
-    "elevation_gain_m": 800,
-    "distance_km": 1.3,
-    "approach": "Enter the Great Gulf and trend toward the visually obvious center gully beneath the cliff wall.",
-    "season": "Dec - Apr",
-    "hazards": ["Avalanche terrain", "Exposed upper section"],
-    "description": "A dynamic line with rolling terrain features, strong overhead hazard, and a steep upper funnel. Very conditions-dependent.",
+    "vertical_drop": 528.2,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "SW",
+    "hazards": [
+      ""
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4+",
       "steepness_deg": 42,
       "exposure": "High"
-    },
-    "photos": []
+    }
   },
   {
     "id": "WC_004",
     "zone": "Webster Cliffs",
     "name": "mountaineers route",
     "difficulty": "Advanced",
-    "elevation_gain_m": 800,
-    "distance_km": 1.3,
-    "approach": "Enter the Great Gulf and trend toward the visually obvious center gully beneath the cliff wall.",
-    "season": "Dec - Apr",
-    "hazards": ["Avalanche terrain", "Exposed upper section"],
-    "description": "A dynamic line with rolling terrain features, strong overhead hazard, and a steep upper funnel. Very conditions-dependent.",
+    "vertical_drop": 1607.6,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "SW",
+    "hazards": [
+      "CD"
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4+",
       "steepness_deg": 42,
       "exposure": "High"
-    },
-    "photos": []
+    }
   },
   {
     "id": "WC_005",
     "zone": "Webster Cliffs",
     "name": "landslide gully",
     "difficulty": "Advanced",
-    "elevation_gain_m": 800,
-    "distance_km": 1.3,
-    "approach": "Enter the Great Gulf and trend toward the visually obvious center gully beneath the cliff wall.",
-    "season": "Dec - Apr",
-    "hazards": ["Avalanche terrain", "Exposed upper section"],
-    "description": "A dynamic line with rolling terrain features, strong overhead hazard, and a steep upper funnel. Very conditions-dependent.",
+    "vertical_drop": 1939.0,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "SW",
+    "hazards": [
+      "T"
+    ],
+    "description": "",
     "rating": {
-      "ski_grade": "S4+",
       "steepness_deg": 42,
       "exposure": "High"
-    },
-    "photos": []
+    }
+  },
+  {
+    "id": "OG_001",
+    "zone": "Oakes Gulf",
+    "name": "airplane bowl",
+    "difficulty": "",
+    "vertical_drop": 813.7,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "SW",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": null,
+      "exposure": ""
+    }
+  },
+  {
+    "id": "OG_002",
+    "zone": "Oakes Gulf",
+    "name": "robinsons neighorhood",
+    "difficulty": "",
+    "vertical_drop": 380.5,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "SE",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": null,
+      "exposure": ""
+    }
+  },
+  {
+    "id": "OG_003",
+    "zone": "Oakes Gulf",
+    "name": "right buttress",
+    "difficulty": "",
+    "vertical_drop": 452.7,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "SW",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": null,
+      "exposure": ""
+    }
+  },
+  {
+    "id": "OG_004",
+    "zone": "Oakes Gulf",
+    "name": "main gully",
+    "difficulty": "",
+    "vertical_drop": 521.7,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "S",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": null,
+      "exposure": ""
+    }
+  },
+  {
+    "id": "OG_005",
+    "zone": "Oakes Gulf",
+    "name": "left buttress",
+    "difficulty": "",
+    "vertical_drop": 488.9,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "SW",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": null,
+      "exposure": ""
+    }
+  },
+  {
+    "id": "OG_006",
+    "zone": "Oakes Gulf",
+    "name": "double barrel west",
+    "difficulty": "",
+    "vertical_drop": 462.6,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "E",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": null,
+      "exposure": ""
+    }
+  },
+  {
+    "id": "OG_007",
+    "zone": "Oakes Gulf",
+    "name": "doublebarrel east",
+    "difficulty": "",
+    "vertical_drop": 269.1,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "E",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": null,
+      "exposure": ""
+    }
+  },
+  {
+    "id": "OG_008",
+    "zone": "Oakes Gulf",
+    "name": "central buttress",
+    "difficulty": "",
+    "vertical_drop": 475.7,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "SW",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": null,
+      "exposure": ""
+    }
   }
 ]

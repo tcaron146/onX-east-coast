@@ -47,11 +47,7 @@ async function loadData() {
           ">×</button>
           <div class="route-title">${props.name}</div>
           <div><strong>Difficulty:</strong> ${meta.difficulty || "Unknown"}</div>
-          <div><strong>Notes:</strong> ${meta.notes || "None"}</div>
-          <div><strong>Elevation Gain:</strong> ${meta.elevation_gain_m ? meta.elevation_gain_m + " m" : "Unknown"}</div>
-          <div><strong>Distance:</strong> ${meta.distance_km ? meta.distance_km + " km" : "Unknown"}</div>
-          <div><strong>Approach:</strong> ${meta.approach || "Unknown"}</div>
-          <div><strong>Season:</strong> ${meta.season || "Unknown"}</div>
+          <div><strong>Vertical:</strong> ${meta.vertical_drop ? meta.vertical_drop + " ft" : "Unknown"}</div>
           <div><strong>Hazards:</strong> ${meta.hazards || "None"}</div>
         `;
         document.getElementById("close-info").onclick = () => {
