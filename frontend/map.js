@@ -9,90 +9,323 @@ const map = new mapboxgl.Map({
 });
 
 let routeData = null;
+let metadata = null;
+let selectedRouteId = null;
 
-async function loadData() {
-  try {
-    // fetch routes and metadata
-    const [routesRes, metadataRes] = await Promise.all([
-      fetch("/routes"),
-      fetch("/metadata.json"),
-    ]);
-    routeData = await routesRes.json();
-    const metadata = await metadataRes.json();
+/* ----------------------------------------------------
+   CUSTOM ARROW ICON
+---------------------------------------------------- */
+map.on("styleimagemissing", () => {
+  if (map.hasImage("arrow-icon")) return;
 
-    map.on("load", () => {
-      map.addSource("routes", { type: "geojson", data: routeData });
-      map.addLayer({
-        id: "route-lines",
-        type: "line",
-        source: "routes",
-        paint: { "line-width": 4, "line-color": "#e100ff" },
-      });
+  const arrowSVG = `
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="white"
+      xmlns="http://www.w3.org/2000/svg">
+      <polygon points="10,2 2,18 18,18"/>
+    </svg>
+  `;
 
-      // click for info
-      map.on("click", "route-lines", (e) => {
-        const props = e.features[0].properties;
-        const meta = metadata.find((m) => m.id == props.id) || {};
-        const info = document.getElementById("info");
-        info.innerHTML = `
-          <button id="close-info" style="
-            float:right;
-            border:none;
-            background:#e74c3c;
-            color:white;
-            font-weight:bold;
-            padding:2px 6px;
-            border-radius:3px;
-            cursor:pointer;
-          ">×</button>
-          <div class="route-title">${props.name}</div>
-          <div><strong>Difficulty:</strong> ${meta.difficulty || "Unknown"}</div>
-          <div><strong>Vertical:</strong> ${meta.vertical_drop ? meta.vertical_drop + " ft" : "Unknown"}</div>
-          <div><strong>Hazards:</strong> ${meta.hazards || "None"}</div>
-        `;
-        document.getElementById("close-info").onclick = () => {
-          info.innerHTML = "Click a route to see details";
-        };
-      });
+  const blob = new Blob([arrowSVG], { type: "image/svg+xml" });
+  const url = URL.createObjectURL(blob);
 
-      map.on("mouseenter", "route-lines", () => {
-        map.getCanvas().style.cursor = "pointer";
-      });
-      map.on("mouseleave", "route-lines", () => {
-        map.getCanvas().style.cursor = "";
-      });
-    });
-  } catch (err) {
-    console.error("Error loading data:", err);
-    document.getElementById("info").innerText = "Failed to load route data.";
+  const img = new Image();
+  img.onload = () => map.addImage("arrow-icon", img);
+  img.src = url;
+});
+
+
+
+/* ----------------------------------------------------
+   ROUTE LAYERS
+---------------------------------------------------- */
+function addRouteLayers() {
+
+  if (!map.getSource("routes")) {
+    map.addSource("routes", { type: "geojson", data: routeData });
   }
+
+  // Base lines
+  if (!map.getLayer("route-lines")) {
+    map.addLayer({
+      id: "route-lines",
+      type: "line",
+      source: "routes",
+      paint: {
+        "line-width": 4,
+        "line-color": "#e100ff",
+        "line-opacity": 0.4
+      }
+    });
+  }
+
+  // Hitbox (easy clicking)
+  if (!map.getLayer("route-hitbox")) {
+    map.addLayer({
+      id: "route-hitbox",
+      type: "line",
+      source: "routes",
+      paint: {
+        "line-width": 25,
+        "line-opacity": 0
+      }
+    });
+  }
+
+  // Highlight
+  if (!map.getLayer("route-highlight")) {
+    map.addLayer({
+      id: "route-highlight",
+      type: "line",
+      source: "routes",
+      paint: {
+        "line-width": 6,
+        "line-color": "yellow",
+        "line-opacity": 0.7
+      },
+      filter: ["==", "id", ""]
+    });
+  }
+
+  // Labels
+  if (!map.getLayer("route-labels")) {
+    map.addLayer({
+      id: "route-labels",
+      type: "symbol",
+      source: "routes",
+      layout: {
+        "symbol-placement": "line",
+        "text-field": ["get", "name"],
+        "text-size": 14,
+        "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+        "symbol-spacing": 400
+      },
+      paint: {
+        "text-color": "white",
+        "text-halo-color": "black",
+        "text-halo-width": 1.5
+      }
+    });
+  }
+}
+
+/* ----------------------------------------------------
+   HIGHLIGHT ROUTE
+---------------------------------------------------- */
+function highlightRoute(routeId) {
+  selectedRouteId = routeId;
+  if (map.getLayer("route-highlight")) {
+    map.setFilter("route-highlight", ["==", "id", routeId]);
+  }
+}
+
+/* ----------------------------------------------------
+   LOAD DATA
+---------------------------------------------------- */
+async function loadData() {
+  const [routesRes, metadataRes] = await Promise.all([
+    fetch("/routes"),
+    fetch("/metadata.json")
+  ]);
+
+  routeData = await routesRes.json();
+  metadata = await metadataRes.json();
+
+  map.on("load", () => {
+    addRouteLayers();
+        addSlopeLayer();  
+
+    map.on("click", "route-hitbox", (e) => {
+      const f = e.features[0];
+      highlightRoute(f.properties.id);
+      showRouteInfo(f);
+    });
+
+    map.on("mouseenter", "route-hitbox", () => {
+      map.getCanvas().style.cursor = "pointer";
+    });
+    map.on("mouseleave", "route-hitbox", () => {
+      map.getCanvas().style.cursor = "";
+    });
+  });
 }
 
 loadData();
 
-// map style toggle
+/* ----------------------------------------------------
+   INFO PANEL
+---------------------------------------------------- */
+function showRouteInfo(feature) {
+  const props = feature.properties;
+  const meta = metadata.find(m => m.id === props.id) || {};
+  const info = document.getElementById("info");
+
+  info.innerHTML = `
+    <button id="close-info" style="
+      float:right;
+      border:none;
+      background:#e74c3c;
+      color:white;
+      font-weight:bold;
+      padding:2px 6px;
+      border-radius:3px;
+      cursor:pointer;">×</button>
+
+    <div class="route-title">${props.name}</div>
+    <div><strong>Difficulty:</strong> ${meta.difficulty || "Unknown"}</div>
+    <div><strong>Vertical:</strong> ${meta.vertical_drop || "Unknown"} ft</div>
+    <div><strong>Hazards:</strong> ${meta.hazards || "None"}</div>
+  `;
+
+  document.getElementById("close-info").onclick = () =>
+    (info.innerHTML = "Click a route to see details");
+}
+
+/* ----------------------------------------------------
+   STYLE TOGGLE
+---------------------------------------------------- */
 const toggle = document.getElementById("map-style-toggle");
-const styles = {
-  topo: "mapbox://styles/mapbox/outdoors-v12",
-  sat: "mapbox://styles/mapbox/satellite-streets-v12",
-};
 let current = "topo";
+
 toggle.onclick = () => {
   current = current === "topo" ? "sat" : "topo";
   toggle.innerText = current === "topo" ? "Satellite" : "Topo";
-  map.setStyle(styles[current]);
+
+  map.setStyle(
+    current === "topo"
+      ? "mapbox://styles/mapbox/outdoors-v12"
+      : "mapbox://styles/mapbox/satellite-streets-v12"
+  );
+
   map.once("styledata", () => {
-    if (!routeData) return;
-    if (!map.getSource("routes")) {
-      map.addSource("routes", { type: "geojson", data: routeData });
-    }
-    if (!map.getLayer("route-lines")) {
-      map.addLayer({
-        id: "route-lines",
-        type: "line",
-        source: "routes",
-        paint: { "line-width": 4, "line-color": "#e100ff" },
-      });
-    }
+    addSlopeLayer();      // MUST restore slope layer!
+    addRouteLayers();
+    if (selectedRouteId) highlightRoute(selectedRouteId);
   });
 };
+
+/* ----------------------------------------------------
+   SEARCH SYSTEM
+---------------------------------------------------- */
+const searchInput = document.getElementById("route-search");
+const searchResults = document.getElementById("search-results");
+let selectedIndex = -1;
+
+function fuzzyMatch(str, keyword) {
+  return str.toLowerCase().includes(keyword.toLowerCase());
+}
+
+function zoomToRoute(feature) {
+  const coords = feature.geometry.coordinates;
+  const bounds = coords.reduce(
+    (b, c) => b.extend(c),
+    new mapboxgl.LngLatBounds(coords[0], coords[0])
+  );
+  map.fitBounds(bounds, { padding: 60 });
+}
+
+searchInput.addEventListener("input", (e) => {
+  const q = e.target.value.trim();
+  selectedIndex = -1; // reset when typing
+
+  if (!q) {
+    searchResults.style.display = "none";
+    return;
+  }
+
+  const matches = routeData.features.filter((f) =>
+    fuzzyMatch(f.properties.name, q)
+  );
+
+  if (!matches.length) {
+    searchResults.innerHTML = `<div class="no-result">No results</div>`;
+    searchResults.style.display = "block";
+    return;
+  }
+
+  searchResults.innerHTML = matches
+    .map(
+      (
+        m,
+        i
+      ) => `<div class="result-item" data-id="${m.properties.id}" data-index="${i}">
+        ${m.properties.name}
+      </div>`
+    )
+    .join("");
+
+  searchResults.style.display = "block";
+});
+/* ----------------------------------------------------
+   KEYBOARD NAVIGATION FOR SEARCH
+---------------------------------------------------- */
+searchInput.addEventListener("keydown", (e) => {
+  const items = [...document.querySelectorAll(".result-item")];
+  if (!items.length) return;
+
+  // ↓ Arrow
+  if (e.key === "ArrowDown") {
+    e.preventDefault();
+    selectedIndex = (selectedIndex + 1) % items.length;
+    updateHighlightedItem(items);
+  }
+
+  // ↑ Arrow
+  if (e.key === "ArrowUp") {
+    e.preventDefault();
+    selectedIndex = (selectedIndex - 1 + items.length) % items.length;
+    updateHighlightedItem(items);
+  }
+
+  // ENTER → select current item
+  if (e.key === "Enter") {
+    e.preventDefault();
+    if (selectedIndex >= 0) {
+      items[selectedIndex].click();
+    }
+  }
+
+  // ESCAPE → close menu
+  if (e.key === "Escape") {
+    searchResults.style.display = "none";
+    selectedIndex = -1;
+  }
+});
+
+/* ----------------------------------------------------
+   HIGHLIGHT CSS HANDLER
+---------------------------------------------------- */
+function updateHighlightedItem(items) {
+  items.forEach((el, i) => {
+    if (i === selectedIndex) {
+      el.style.background = "#333";
+      el.style.color = "white";
+    } else {
+      el.style.background = "white";
+      el.style.color = "black";
+    }
+  });
+
+  // scroll into view smoothly
+  if (selectedIndex >= 0) {
+    items[selectedIndex].scrollIntoView({
+      block: "nearest",
+      behavior: "smooth",
+    });
+  }
+}
+
+searchResults.addEventListener("click", (e) => {
+  const id = e.target.dataset.id;
+  if (!id) return;
+
+  const feature = routeData.features.find((f) => f.properties.id === id);
+
+  if (feature) {
+    zoomToRoute(feature);
+    highlightRoute(feature.properties.id);
+    showRouteInfo(feature);
+  }
+
+  searchResults.style.display = "none";
+  searchInput.value = "";
+});

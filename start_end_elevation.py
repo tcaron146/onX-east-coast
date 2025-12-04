@@ -6,7 +6,7 @@ from affine import Affine
 # ------------------------------
 # CONFIG
 # ------------------------------
-DEM_PATH = "n44_w072_1arc_v3.tif"          # your single DEM
+DEM_PATH = "n44_w072_1arc_v3.tif"
 GEOJSON_PATH = "data/routes.geojson" # input routes
 OUTPUT_GEOJSON = "routes_with_elev.geojson"
 
