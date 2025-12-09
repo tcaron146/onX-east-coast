@@ -199,8 +199,8 @@ function addDrawControls() {
 
 async function loadData() {
   const [routesRes, metadataRes] = await Promise.all([
-fetch("data/routes.geojson"),
-fetch("data/metadata.json"),
+fetch("routes.geojson"),
+fetch("metadata.json"),
 
   ]);
 
