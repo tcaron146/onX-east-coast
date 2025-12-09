@@ -1,58 +1,5 @@
 mapboxgl.accessToken =
   "pk.eyJ1IjoidGNhcm9uMTQ2IiwiYSI6ImNtaW5odm9rMTBkNGwzaXBtbGZnM3d6dzkifQ.HP_cVQrd9lMqYywOwF_Xzw";
-  // ----------------------------------------------
-// Slide-to-unlock → Hide Landing → Show Map
-// ----------------------------------------------
-
-let isSliding = false;
-let startX = 0;
-
-const handle = document.getElementById("slider-handle");
-const track = document.getElementById("slider-track");
-const landing = document.getElementById("landing-screen");
-
-handle.addEventListener("mousedown", (e) => {
-  isSliding = true;
-  startX = e.clientX;
-  handle.style.cursor = "grabbing";
-});
-
-document.addEventListener("mousemove", (e) => {
-  if (!isSliding) return;
-
-  const dx = e.clientX - startX;
-  const maxX = track.clientWidth - handle.clientWidth;
-
-  const pos = Math.min(Math.max(0, dx), maxX);
-  handle.style.left = pos + "px";
-
-  // If slider reaches the end → fade out
-  if (pos >= maxX - 2) {
-    completeSlide();
-  }
-});
-
-document.addEventListener("mouseup", () => {
-  if (!isSliding) return;
-  isSliding = false;
-  resetSlider();
-});
-
-function resetSlider() {
-  handle.style.transition = "left 0.3s";
-  handle.style.left = "0px";
-  setTimeout(() => (handle.style.transition = ""), 300);
-}
-
-function completeSlide() {
-  landing.style.transition = "opacity 0.6s";
-  landing.style.opacity = 0;
-
-  setTimeout(() => {
-    landing.style.display = "none";
-  }, 600);
-}
-
 
 const map = new mapboxgl.Map({
   container: "map",
@@ -199,9 +146,8 @@ function addDrawControls() {
 
 async function loadData() {
   const [routesRes, metadataRes] = await Promise.all([
-fetch("routes.geojson"),
-fetch("metadata.json"),
-
+fetch("data/routes.geojson"),
+fetch("data/metadata.json")
   ]);
 
   routeData = await routesRes.json();
