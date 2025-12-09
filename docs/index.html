@@ -269,23 +269,24 @@
 
       let dragging = false;
 
-      handle.addEventListener("mousedown", () => (dragging = true));
-      document.addEventListener("mouseup", () => (dragging = false));
+handle.addEventListener("mousedown", () => (dragging = true));
+document.addEventListener("mouseup", () => (dragging = false));
 
-      document.addEventListener("mousemove", (e) => {
-        if (!dragging) return;
+document.addEventListener("mousemove", (e) => {
+  if (!dragging) return;
 
-        const rect = track.getBoundingClientRect();
-        let x = e.clientX - rect.left - 25;
+  const rect = track.getBoundingClientRect();
+  let x = e.clientX - rect.left - 25;
 
-        x = Math.max(0, Math.min(x, rect.width - 50));
-        handle.style.left = x + "px";
+  x = Math.max(0, Math.min(x, rect.width - 50));
+  handle.style.left = x + "px";
 
-        if (x > rect.width * 0.82) {
-          landing.style.opacity = "0";
-          setTimeout(() => (landing.style.display = "none"), 300);
-        }
-      });
+  if (x > rect.width * 0.82) {
+    landing.style.opacity = "0";
+    setTimeout(() => (landing.style.display = "none"), 300);
+  }
+});
+
     </script>
   </body>
 </html>
