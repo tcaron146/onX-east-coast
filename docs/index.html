@@ -269,24 +269,36 @@
 
       let dragging = false;
 
-handle.addEventListener("mousedown", () => (dragging = true));
-document.addEventListener("mouseup", () => (dragging = false));
+      function moveSlider(clientX) {
+        const rect = track.getBoundingClientRect();
+        let x = clientX - rect.left - 25;
 
-document.addEventListener("mousemove", (e) => {
-  if (!dragging) return;
+        x = Math.max(0, Math.min(x, rect.width - 50));
+        handle.style.left = x + "px";
 
-  const rect = track.getBoundingClientRect();
-  let x = e.clientX - rect.left - 25;
+        if (x > rect.width * 0.82) {
+          landing.style.opacity = "0";
+          setTimeout(() => (landing.style.display = "none"), 300);
+        }
+      }
 
-  x = Math.max(0, Math.min(x, rect.width - 50));
-  handle.style.left = x + "px";
+      /* ---- DESKTOP EVENTS ---- */
+      handle.addEventListener("mousedown", () => (dragging = true));
+      document.addEventListener("mouseup", () => (dragging = false));
 
-  if (x > rect.width * 0.82) {
-    landing.style.opacity = "0";
-    setTimeout(() => (landing.style.display = "none"), 300);
-  }
-});
+      document.addEventListener("mousemove", (e) => {
+        if (!dragging) return;
+        moveSlider(e.clientX);
+      });
 
+      /* ---- iOS/ANDROID TOUCH EVENTS ---- */
+      handle.addEventListener("touchstart", () => (dragging = true));
+      document.addEventListener("touchend", () => (dragging = false));
+
+      document.addEventListener("touchmove", (e) => {
+        if (!dragging) return;
+        moveSlider(e.touches[0].clientX);
+      });
     </script>
   </body>
 </html>
