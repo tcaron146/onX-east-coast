@@ -85,4 +85,4 @@ for feature in routes["features"]:
 with open(OUTPUT_GEOJSON, "w") as f:
     json.dump(output, f, indent=2)
 
-print("Done! Enhanced GeoJSON saved as:", OUTPUT_GEOJSON)
+print("Enhanced GeoJSON saved as:", OUTPUT_GEOJSON)

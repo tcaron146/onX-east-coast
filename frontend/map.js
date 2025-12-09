@@ -1,5 +1,58 @@
 mapboxgl.accessToken =
   "pk.eyJ1IjoidGNhcm9uMTQ2IiwiYSI6ImNtaW5odm9rMTBkNGwzaXBtbGZnM3d6dzkifQ.HP_cVQrd9lMqYywOwF_Xzw";
+  // ----------------------------------------------
+// Slide-to-unlock → Hide Landing → Show Map
+// ----------------------------------------------
+
+let isSliding = false;
+let startX = 0;
+
+const handle = document.getElementById("slider-handle");
+const track = document.getElementById("slider-track");
+const landing = document.getElementById("landing-screen");
+
+handle.addEventListener("mousedown", (e) => {
+  isSliding = true;
+  startX = e.clientX;
+  handle.style.cursor = "grabbing";
+});
+
+document.addEventListener("mousemove", (e) => {
+  if (!isSliding) return;
+
+  const dx = e.clientX - startX;
+  const maxX = track.clientWidth - handle.clientWidth;
+
+  const pos = Math.min(Math.max(0, dx), maxX);
+  handle.style.left = pos + "px";
+
+  // If slider reaches the end → fade out
+  if (pos >= maxX - 2) {
+    completeSlide();
+  }
+});
+
+document.addEventListener("mouseup", () => {
+  if (!isSliding) return;
+  isSliding = false;
+  resetSlider();
+});
+
+function resetSlider() {
+  handle.style.transition = "left 0.3s";
+  handle.style.left = "0px";
+  setTimeout(() => (handle.style.transition = ""), 300);
+}
+
+function completeSlide() {
+  landing.style.transition = "opacity 0.6s";
+  landing.style.opacity = 0;
+
+  setTimeout(() => {
+    landing.style.display = "none";
+  }, 600);
+}
+
 
 const map = new mapboxgl.Map({
   container: "map",
@@ -12,39 +65,61 @@ let routeData = null;
 let metadata = null;
 let selectedRouteId = null;
 
-/* ----------------------------------------------------
-   CUSTOM ARROW ICON
----------------------------------------------------- */
-map.on("styleimagemissing", () => {
-  if (map.hasImage("arrow-icon")) return;
-
-  const arrowSVG = `
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="white"
-      xmlns="http://www.w3.org/2000/svg">
-      <polygon points="10,2 2,18 18,18"/>
-    </svg>
-  `;
-
-  const blob = new Blob([arrowSVG], { type: "image/svg+xml" });
-  const url = URL.createObjectURL(blob);
-
-  const img = new Image();
-  img.onload = () => map.addImage("arrow-icon", img);
-  img.src = url;
+const draw = new MapboxDraw({
+  displayControlsDefault: false,
+  controls: {
+    line_string: true,
+    trash: true,
+  },
+  styles: [
+    {
+      id: "gl-draw-line",
+      type: "line",
+      filter: ["all", ["==", "$type", "LineString"], ["!=", "mode", "static"]],
+      paint: {
+        "line-color": "#00e0ff",
+        "line-width": 4,
+      },
+    },
+    {
+      id: "gl-draw-line-active",
+      type: "line",
+      filter: ["all", ["==", "$type", "LineString"], ["==", "active", "true"]],
+      paint: {
+        "line-color": "#00aaff",
+        "line-width": 5,
+      },
+    },
+  ],
 });
 
 
+map.on("draw.create", (e) => {
+  const feature = e.features[0];
+  downloadDrawnRoute(feature);
+});
 
-/* ----------------------------------------------------
-   ROUTE LAYERS
----------------------------------------------------- */
+function downloadDrawnRoute(feature) {
+  const name =
+    feature.properties?.name ||
+    `drawn_route_${Date.now().toString().slice(-5)}`;
+
+  const blob = new Blob([JSON.stringify(feature, null, 2)], {
+    type: "application/json",
+  });
+
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = name + ".geojson";
+  link.click();
+}
+
+
 function addRouteLayers() {
-
   if (!map.getSource("routes")) {
     map.addSource("routes", { type: "geojson", data: routeData });
   }
-
-  // Base lines
+  
   if (!map.getLayer("route-lines")) {
     map.addLayer({
       id: "route-lines",
@@ -53,12 +128,11 @@ function addRouteLayers() {
       paint: {
         "line-width": 4,
         "line-color": "#e100ff",
-        "line-opacity": 0.4
-      }
+        "line-opacity": 0.4,
+      },
     });
   }
 
-  // Hitbox (easy clicking)
   if (!map.getLayer("route-hitbox")) {
     map.addLayer({
       id: "route-hitbox",
@@ -66,12 +140,11 @@ function addRouteLayers() {
       source: "routes",
       paint: {
         "line-width": 25,
-        "line-opacity": 0
-      }
+        "line-opacity": 0,
+      },
     });
   }
 
-  // Highlight
   if (!map.getLayer("route-highlight")) {
     map.addLayer({
       id: "route-highlight",
@@ -80,13 +153,12 @@ function addRouteLayers() {
       paint: {
         "line-width": 6,
         "line-color": "yellow",
-        "line-opacity": 0.7
+        "line-opacity": 0.7,
       },
-      filter: ["==", "id", ""]
+      filter: ["==", "id", ""],
     });
   }
 
-  // Labels
   if (!map.getLayer("route-labels")) {
     map.addLayer({
       id: "route-labels",
@@ -97,20 +169,17 @@ function addRouteLayers() {
         "text-field": ["get", "name"],
         "text-size": 14,
         "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-        "symbol-spacing": 400
+        "symbol-spacing": 400,
       },
       paint: {
-        "text-color": "white",
-        "text-halo-color": "black",
-        "text-halo-width": 1.5
-      }
+        "text-color": "#ffffff",
+        "text-halo-color": "rgba(0,0,0,0.75)",
+        "text-halo-width": 1.5,
+      },
     });
   }
 }
 
-/* ----------------------------------------------------
-   HIGHLIGHT ROUTE
----------------------------------------------------- */
 function highlightRoute(routeId) {
   selectedRouteId = routeId;
   if (map.getLayer("route-highlight")) {
@@ -118,13 +187,20 @@ function highlightRoute(routeId) {
   }
 }
 
-/* ----------------------------------------------------
-   LOAD DATA
----------------------------------------------------- */
+let drawAdded = false;
+
+function addDrawControls() {
+  if (drawAdded) return;
+
+  map.addControl(draw, "top-left");
+  drawAdded = true;
+  document.querySelector(".mapboxgl-ctrl-top-left").style.zIndex = "9999";
+}
+
 async function loadData() {
   const [routesRes, metadataRes] = await Promise.all([
     fetch("/routes"),
-    fetch("/metadata.json")
+    fetch("/metadata.json"),
   ]);
 
   routeData = await routesRes.json();
@@ -132,12 +208,12 @@ async function loadData() {
 
   map.on("load", () => {
     addRouteLayers();
-        addSlopeLayer();  
+    addDrawControls();
 
     map.on("click", "route-hitbox", (e) => {
-      const f = e.features[0];
-      highlightRoute(f.properties.id);
-      showRouteInfo(f);
+      const feature = e.features[0];
+      highlightRoute(feature.properties.id);
+      showRouteInfo(feature);
     });
 
     map.on("mouseenter", "route-hitbox", () => {
@@ -151,12 +227,9 @@ async function loadData() {
 
 loadData();
 
-/* ----------------------------------------------------
-   INFO PANEL
----------------------------------------------------- */
 function showRouteInfo(feature) {
   const props = feature.properties;
-  const meta = metadata.find(m => m.id === props.id) || {};
+  const meta = metadata.find((m) => m.id === props.id) || {};
   const info = document.getElementById("info");
 
   info.innerHTML = `
@@ -168,7 +241,8 @@ function showRouteInfo(feature) {
       font-weight:bold;
       padding:2px 6px;
       border-radius:3px;
-      cursor:pointer;">×</button>
+      cursor:pointer;
+    ">×</button>
 
     <div class="route-title">${props.name}</div>
     <div><strong>Difficulty:</strong> ${meta.difficulty || "Unknown"}</div>
@@ -176,13 +250,11 @@ function showRouteInfo(feature) {
     <div><strong>Hazards:</strong> ${meta.hazards || "None"}</div>
   `;
 
-  document.getElementById("close-info").onclick = () =>
-    (info.innerHTML = "Click a route to see details");
+  document.getElementById("close-info").onclick = () => {
+    info.innerHTML = "Click a route to see details";
+  };
 }
 
-/* ----------------------------------------------------
-   STYLE TOGGLE
----------------------------------------------------- */
 const toggle = document.getElementById("map-style-toggle");
 let current = "topo";
 
@@ -197,15 +269,14 @@ toggle.onclick = () => {
   );
 
   map.once("styledata", () => {
-    addSlopeLayer();      // MUST restore slope layer!
+    drawAdded = false;
     addRouteLayers();
+    addHillshadeLayer();
+    addDrawControls();
     if (selectedRouteId) highlightRoute(selectedRouteId);
   });
 };
 
-/* ----------------------------------------------------
-   SEARCH SYSTEM
----------------------------------------------------- */
 const searchInput = document.getElementById("route-search");
 const searchResults = document.getElementById("search-results");
 let selectedIndex = -1;
@@ -225,7 +296,7 @@ function zoomToRoute(feature) {
 
 searchInput.addEventListener("input", (e) => {
   const q = e.target.value.trim();
-  selectedIndex = -1; // reset when typing
+  selectedIndex = -1;
 
   if (!q) {
     searchResults.style.display = "none";
@@ -244,10 +315,8 @@ searchInput.addEventListener("input", (e) => {
 
   searchResults.innerHTML = matches
     .map(
-      (
-        m,
-        i
-      ) => `<div class="result-item" data-id="${m.properties.id}" data-index="${i}">
+      (m, i) => `
+      <div class="result-item" data-id="${m.properties.id}" data-index="${i}">
         ${m.properties.name}
       </div>`
     )
@@ -255,45 +324,34 @@ searchInput.addEventListener("input", (e) => {
 
   searchResults.style.display = "block";
 });
-/* ----------------------------------------------------
-   KEYBOARD NAVIGATION FOR SEARCH
----------------------------------------------------- */
+
 searchInput.addEventListener("keydown", (e) => {
   const items = [...document.querySelectorAll(".result-item")];
   if (!items.length) return;
 
-  // ↓ Arrow
   if (e.key === "ArrowDown") {
     e.preventDefault();
     selectedIndex = (selectedIndex + 1) % items.length;
     updateHighlightedItem(items);
   }
 
-  // ↑ Arrow
   if (e.key === "ArrowUp") {
     e.preventDefault();
     selectedIndex = (selectedIndex - 1 + items.length) % items.length;
     updateHighlightedItem(items);
   }
 
-  // ENTER → select current item
   if (e.key === "Enter") {
     e.preventDefault();
-    if (selectedIndex >= 0) {
-      items[selectedIndex].click();
-    }
+    if (selectedIndex >= 0) items[selectedIndex].click();
   }
 
-  // ESCAPE → close menu
   if (e.key === "Escape") {
     searchResults.style.display = "none";
     selectedIndex = -1;
   }
 });
 
-/* ----------------------------------------------------
-   HIGHLIGHT CSS HANDLER
----------------------------------------------------- */
 function updateHighlightedItem(items) {
   items.forEach((el, i) => {
     if (i === selectedIndex) {
@@ -305,7 +363,6 @@ function updateHighlightedItem(items) {
     }
   });
 
-  // scroll into view smoothly
   if (selectedIndex >= 0) {
     items[selectedIndex].scrollIntoView({
       block: "nearest",
