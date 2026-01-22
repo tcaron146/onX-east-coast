@@ -11,6 +11,7 @@ const map = new mapboxgl.Map({
 let routeData = null;
 let metadata = null;
 let selectedRouteId = null;
+let terrainEnabled = true;
 
 const draw = new MapboxDraw({
   displayControlsDefault: false,
@@ -61,6 +62,17 @@ function downloadDrawnRoute(feature) {
   link.click();
 }
 
+function toggleTerrain() {
+  terrainEnabled = !terrainEnabled;
+
+  if (terrainEnabled) {
+    add3DTerrain();
+  } else {
+    map.setTerrain(null);
+    map.easeTo({ pitch: 0, bearing: 0 });
+  }
+}
+
 
 function addRouteLayers() {
   if (!map.getSource("routes")) {
@@ -105,6 +117,41 @@ function addRouteLayers() {
       filter: ["==", "id", ""],
     });
   }
+
+  function add3DTerrain() {
+  if (!map.getSource("mapbox-dem")) {
+    map.addSource("mapbox-dem", {
+      type: "raster-dem",
+      url: "mapbox://mapbox.terrain-rgb",
+      tileSize: 512,
+      maxzoom: 14
+    });
+  }
+
+  map.setTerrain({
+    source: "mapbox-dem",
+    exaggeration: 1.4
+  });
+
+  if (!map.getLayer("sky")) {
+    map.addLayer({
+      id: "sky",
+      type: "sky",
+      paint: {
+        "sky-type": "atmosphere",
+        "sky-atmosphere-sun": [0.0, 0.0],
+        "sky-atmosphere-sun-intensity": 15
+      }
+    });
+  }
+
+  map.easeTo({
+    pitch: 65,
+    bearing: -20,
+    duration: 1200
+  });
+}
+
 
   if (!map.getLayer("route-labels")) {
     map.addLayer({
@@ -154,6 +201,7 @@ fetch("data/metadata.json")
   metadata = await metadataRes.json();
 
   map.on("load", () => {
+    add3DTerrain(); 
     addRouteLayers();
     addDrawControls();
 
@@ -217,6 +265,7 @@ toggle.onclick = () => {
 
   map.once("styledata", () => {
     drawAdded = false;
+    add3DTerrain();   
     addRouteLayers();
     addHillshadeLayer();
     addDrawControls();
