@@ -117,6 +117,26 @@ function addRouteLayers() {
       filter: ["==", "id", ""],
     });
   }
+  if (!map.getLayer("route-labels")) {
+    map.addLayer({
+      id: "route-labels",
+      type: "symbol",
+      source: "routes",
+      layout: {
+        "symbol-placement": "line",
+        "text-field": ["get", "name"],
+        "text-size": 14,
+        "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+        "symbol-spacing": 400,
+      },
+      paint: {
+        "text-color": "#ffffff",
+        "text-halo-color": "rgba(0,0,0,0.75)",
+        "text-halo-width": 1.5,
+      },
+    });
+  }
+}
 
   function add3DTerrain() {
   if (!map.getSource("mapbox-dem")) {
@@ -150,28 +170,6 @@ function addRouteLayers() {
     bearing: -20,
     duration: 1200
   });
-}
-
-
-  if (!map.getLayer("route-labels")) {
-    map.addLayer({
-      id: "route-labels",
-      type: "symbol",
-      source: "routes",
-      layout: {
-        "symbol-placement": "line",
-        "text-field": ["get", "name"],
-        "text-size": 14,
-        "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-        "symbol-spacing": 400,
-      },
-      paint: {
-        "text-color": "#ffffff",
-        "text-halo-color": "rgba(0,0,0,0.75)",
-        "text-halo-width": 1.5,
-      },
-    });
-  }
 }
 
 function highlightRoute(routeId) {
