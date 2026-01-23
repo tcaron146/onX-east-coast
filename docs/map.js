@@ -411,6 +411,7 @@ const SENTINEL_TRUE_COLOR_URL =
   `&TILEMATRIXSET=PopularWebMercator256` +
   `&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}` +
   `&FORMAT=image/jpeg` +
+  `&TIME=2024-01-01/2024-12-31` +
   `&APIKEY=cd70df88-be3e-4fce-8a0b-92732b9f6e42`;
 
 // Sentinel-2 NDSI Snow (transparent PNG)
@@ -421,6 +422,7 @@ const SENTINEL_NDSI_URL =
   `&TILEMATRIXSET=PopularWebMercator256` +
   `&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}` +
   `&FORMAT=image/png` +
+  `&TIME=2024-01-01/2024-12-31` +
   `&APIKEY=cd70df88-be3e-4fce-8a0b-92732b9f6e42`;
 
 function getFirstSymbolLayerId() {
