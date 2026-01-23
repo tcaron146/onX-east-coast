@@ -16,9 +16,8 @@ let terrainEnabled = true;
 let activeOverlays = {
   truecolor: false,
   snow: false,
-  slope: false
+  slope: false,
 };
-
 
 const draw = new MapboxDraw({
   displayControlsDefault: false,
@@ -47,7 +46,6 @@ const draw = new MapboxDraw({
     },
   ],
 });
-
 
 map.on("draw.create", (e) => {
   const feature = e.features[0];
@@ -80,12 +78,11 @@ function toggleTerrain() {
   }
 }
 
-
 function addRouteLayers() {
   if (!map.getSource("routes")) {
     map.addSource("routes", { type: "geojson", data: routeData });
   }
-  
+
   if (!map.getLayer("route-lines")) {
     map.addLayer({
       id: "route-lines",
@@ -145,19 +142,19 @@ function addRouteLayers() {
   }
 }
 
-  function add3DTerrain() {
+function add3DTerrain() {
   if (!map.getSource("mapbox-dem")) {
     map.addSource("mapbox-dem", {
       type: "raster-dem",
       url: "mapbox://mapbox.terrain-rgb",
       tileSize: 512,
-      maxzoom: 14
+      maxzoom: 14,
     });
   }
 
   map.setTerrain({
     source: "mapbox-dem",
-    exaggeration: 1.4
+    exaggeration: 1.4,
   });
 
   if (!map.getLayer("sky")) {
@@ -167,15 +164,15 @@ function addRouteLayers() {
       paint: {
         "sky-type": "atmosphere",
         "sky-atmosphere-sun": [0.0, 0.0],
-        "sky-atmosphere-sun-intensity": 15
-      }
+        "sky-atmosphere-sun-intensity": 15,
+      },
     });
   }
 
   map.easeTo({
     pitch: 65,
     bearing: -20,
-    duration: 1200
+    duration: 1200,
   });
 }
 
@@ -198,15 +195,15 @@ function addDrawControls() {
 
 async function loadData() {
   const [routesRes, metadataRes] = await Promise.all([
-fetch("data/routes.geojson"),
-fetch("data/metadata.json")
+    fetch("data/routes.geojson"),
+    fetch("data/metadata.json"),
   ]);
 
   routeData = await routesRes.json();
   metadata = await metadataRes.json();
 
   map.on("load", () => {
-    add3DTerrain(); 
+    add3DTerrain();
     addRouteLayers();
     addDrawControls();
 
@@ -265,26 +262,26 @@ toggle.onclick = () => {
   map.setStyle(
     current === "topo"
       ? "mapbox://styles/mapbox/outdoors-v12"
-      : "mapbox://styles/mapbox/satellite-streets-v12"
+      : "mapbox://styles/mapbox/satellite-streets-v12",
   );
 
   map.once("styledata", () => {
-  drawAdded = false;
-  add3DTerrain();
-  addRouteLayers();
-  addDrawControls();
-  if (selectedRouteId) highlightRoute(selectedRouteId);
+    drawAdded = false;
+    add3DTerrain();
+    addRouteLayers();
+    addDrawControls();
+    if (selectedRouteId) highlightRoute(selectedRouteId);
 
-  if (activeOverlays.truecolor) {
-    toggleRasterLayer("truecolor", TRUE_COLOR_URL, 0.9);
-  }
-  if (activeOverlays.snow) {
-    toggleRasterLayer("snow", SNOW_URL, 0.7);
-  }
-  if (activeOverlays.slope) {
-    toggleSlopeLayer();
-  }
-});
+    if (activeOverlays.truecolor) {
+      toggleRasterLayer("truecolor", TRUE_COLOR_URL, 0.9);
+    }
+    if (activeOverlays.snow) {
+      toggleRasterLayer("snow", SNOW_URL, 0.7);
+    }
+    if (activeOverlays.slope) {
+      toggleSlopeLayer();
+    }
+  });
 };
 
 const searchInput = document.getElementById("route-search");
@@ -299,7 +296,7 @@ function zoomToRoute(feature) {
   const coords = feature.geometry.coordinates;
   const bounds = coords.reduce(
     (b, c) => b.extend(c),
-    new mapboxgl.LngLatBounds(coords[0], coords[0])
+    new mapboxgl.LngLatBounds(coords[0], coords[0]),
   );
   map.fitBounds(bounds, { padding: 60 });
 }
@@ -314,7 +311,7 @@ searchInput.addEventListener("input", (e) => {
   }
 
   const matches = routeData.features.filter((f) =>
-    fuzzyMatch(f.properties.name, q)
+    fuzzyMatch(f.properties.name, q),
   );
 
   if (!matches.length) {
@@ -328,7 +325,7 @@ searchInput.addEventListener("input", (e) => {
       (m, i) => `
       <div class="result-item" data-id="${m.properties.id}" data-index="${i}">
         ${m.properties.name}
-      </div>`
+      </div>`,
     )
     .join("");
 
@@ -394,6 +391,14 @@ const SNOW_URL =
   `&LAYER=SNOW_MASK&TILEMATRIXSET=PopularWebMercator256` +
   `&FORMAT=image/png&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}`;
 
+function getFirstSymbolLayerId() {
+  const layers = map.getStyle().layers;
+  for (const layer of layers) {
+    if (layer.type === "symbol") return layer.id;
+  }
+  return null;
+}
+
 function toggleRasterLayer(id, tiles, opacity = 0.8) {
   if (map.getLayer(id)) {
     map.removeLayer(id);
@@ -404,15 +409,18 @@ function toggleRasterLayer(id, tiles, opacity = 0.8) {
   map.addSource(id, {
     type: "raster",
     tiles: [tiles],
-    tileSize: 256
+    tileSize: 256,
   });
 
-  map.addLayer({
-    id,
-    type: "raster",
-    source: id,
-    paint: { "raster-opacity": opacity }
-  });
+  map.addLayer(
+    {
+      id,
+      type: "raster",
+      source: id,
+      paint: { "raster-opacity": opacity },
+    },
+    getFirstSymbolLayerId(), // 👈 key line
+  );
 
   return true;
 }
@@ -423,12 +431,35 @@ function toggleSlopeLayer() {
     return false;
   }
 
-  map.addLayer({
-    id: "slope",
-    type: "hillshade",
-    source: "mapbox-dem",
-    paint: { "hillshade-exaggeration": 0.9 }
-  });
+  map.addLayer(
+    {
+      id: "slope",
+      type: "raster",
+      source: "mapbox-dem",
+      paint: {
+        "raster-opacity": 0.85,
+        "raster-color": [
+          "interpolate",
+          ["linear"],
+          ["raster-value"],
+
+          0,
+          "rgba(0, 150, 0, 0.0)", // flat
+          15,
+          "rgba(0, 200, 0, 0.6)", // mellow
+          25,
+          "rgba(255, 255, 0, 0.7)", // steep
+          30,
+          "rgba(255, 165, 0, 0.8)", // avalanche start
+          35,
+          "rgba(255, 0, 0, 0.85)", // dangerous
+          45,
+          "rgba(150, 0, 150, 0.9)", // extreme
+        ],
+      },
+    },
+    getFirstSymbolLayerId(),
+  );
 
   return true;
 }
@@ -438,13 +469,15 @@ document.querySelectorAll(".layer-btn").forEach((btn) => {
     const layer = btn.dataset.layer;
 
     if (layer === "truecolor") {
-      activeOverlays.truecolor =
-        toggleRasterLayer("truecolor", TRUE_COLOR_URL, 0.9);
+      activeOverlays.truecolor = toggleRasterLayer(
+        "truecolor",
+        TRUE_COLOR_URL,
+        0.9,
+      );
     }
 
     if (layer === "snow") {
-      activeOverlays.snow =
-        toggleRasterLayer("snow", SNOW_URL, 0.7);
+      activeOverlays.snow = toggleRasterLayer("snow", SNOW_URL, 0.7);
     }
 
     if (layer === "slope") {
@@ -454,7 +487,6 @@ document.querySelectorAll(".layer-btn").forEach((btn) => {
     btn.classList.toggle("active", activeOverlays[layer]);
   };
 });
-
 
 searchResults.addEventListener("click", (e) => {
   const id = e.target.dataset.id;
