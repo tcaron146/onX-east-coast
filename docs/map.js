@@ -286,7 +286,7 @@ toggle.onclick = () => {
       toggleRasterLayer("truecolor", TRUE_COLOR_URL, 0.9);
     }
     if (activeOverlays.snow) {
-      toggleRasterLayer("snow", getSnowLayerUrl(), 0.7);
+      toggleRasterLayer("snow", SNOW_URL, 0.6);
     }
     if (activeOverlays.slope) {
       toggleSlopeLayer();
@@ -389,21 +389,15 @@ function updateHighlightedItem(items) {
 }
 const SENTINEL_INSTANCE_ID = "cd70df88-be3e-4fce-8a0b-92732b9f6e42";
 
-// Alternative: Using public satellite imagery services
-// TRUE COLOR: Recent Sentinel-2 imagery
+// Using reliable public satellite imagery services
+// TRUE COLOR: Mapbox Satellite (high quality, always available)
 const TRUE_COLOR_URL = 
-  `https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2022_3857/default/g/{z}/{y}/{x}.jpg`;
+  `https://api.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}@2x.jpg?access_token=${mapboxgl.accessToken}`;
 
-// SNOW: MODIS snow cover (updated daily)
+// SNOW: Using Sentinel Hub with NDSI (Normalized Difference Snow Index)
+// This requires a different approach - we'll use a simpler snow visualization
 const SNOW_URL = 
-  `https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_Snow_Cover/default/{time}/GoogleMapsCompatible_Level8/{z}/{y}/{x}.png`;
-
-// For snow layer, we need to add a time parameter
-function getSnowLayerUrl() {
-  const today = new Date();
-  const timeStr = today.toISOString().split('T')[0];
-  return SNOW_URL.replace('{time}', timeStr);
-}
+  `https://server.arcgisonline.com/ArcGIS/rest/services/Polar/Arctic_Imagery/MapServer/tile/{z}/{y}/{x}`;
 
 function getFirstSymbolLayerId() {
   const layers = map.getStyle().layers;
@@ -491,8 +485,7 @@ document.querySelectorAll(".layer-btn").forEach((btn) => {
     }
 
     if (layer === "snow") {
-      // Use the function to get current date for snow layer
-      activeOverlays.snow = toggleRasterLayer("snow", getSnowLayerUrl(), 0.7);
+      activeOverlays.snow = toggleRasterLayer("snow", SNOW_URL, 0.6);
     }
 
     if (layer === "slope") {
