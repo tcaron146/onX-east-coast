@@ -229,6 +229,63 @@
         color: white;
         border-color: #2c2c2c;
       }
+
+      /* SEARCH RESULTS DROPDOWN */
+#search-results {
+  position: absolute;
+  top: 42px;
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  max-height: 220px;
+  overflow-y: auto;
+  z-index: 99999;
+  display: none;
+}
+
+.result-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+}
+
+.result-item:hover {
+  background: #f0f0f0;
+}
+
+.no-result {
+  padding: 10px;
+  color: #777;
+}
+
+/* SLOPE LEGEND */
+#slope-legend {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+#slope-legend div {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+#slope-legend span {
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  border-radius: 3px;
+}
+
     </style>
   </head>
 
@@ -268,9 +325,10 @@
         <div id="search-results"></div>
       </div>
       <div id="layer-toggles">
-        <button class="layer-btn" data-layer="truecolor">🛰 Live Sat</button>
-        <button class="layer-btn" data-layer="snow">❄ Snow</button>
-        <button class="layer-btn" data-layer="slope">📐 Slope</button>
+        <button class="layer-btn" data-layer="sentinel">Sentinel</button>
+<button class="layer-btn" data-layer="snow">Snow</button>
+<button class="layer-btn" data-layer="slope">Slope</button>
+
       </div>
     </div>
 

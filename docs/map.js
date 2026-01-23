@@ -14,6 +14,7 @@ let selectedRouteId = null;
 let terrainEnabled = true;
 
 let activeOverlays = {
+  sentinel: false,
   snow: false,
   slope: false,
 };
@@ -211,152 +212,31 @@ async function loadData() {
     add3DTerrain();
     addRouteLayers();
     addDrawControls();
-
-    map.on("click", "route-hitbox", (e) => {
-      const feature = e.features[0];
-      highlightRoute(feature.properties.id);
-      showRouteInfo(feature);
-    });
-
-    map.on("mouseenter", "route-hitbox", () => {
-      map.getCanvas().style.cursor = "pointer";
-    });
-    map.on("mouseleave", "route-hitbox", () => {
-      map.getCanvas().style.cursor = "";
-    });
   });
 }
 
 loadData();
 
-function showRouteInfo(feature) {
-  const props = feature.properties;
-  const meta = metadata.find((m) => m.id === props.id) || {};
-  const info = document.getElementById("info");
+/* ---------------- SENTINEL ---------------- */
 
-  info.innerHTML = `
-    <button id="close-info" style="
-      float:right;
-      border:none;
-      background:#e74c3c;
-      color:white;
-      font-weight:bold;
-      padding:2px 6px;
-      border-radius:3px;
-      cursor:pointer;
-    ">×</button>
+const SENTINEL_INSTANCE_ID = "YOUR_INSTANCE_ID_HERE";
 
-    <div class="route-title">${props.name}</div>
-    <div><strong>Difficulty:</strong> ${meta.difficulty || "Unknown"}</div>
-    <div><strong>Vertical:</strong> ${meta.vertical_drop || "Unknown"} ft</div>
-    <div><strong>Hazards:</strong> ${meta.hazards || "None"}</div>
-  `;
+const SENTINEL_TRUE_COLOR_URL =
+  `https://services.sentinel-hub.com/ogc/wmts/${SENTINEL_INSTANCE_ID}` +
+  `?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0` +
+  `&LAYER=TRUE_COLOR&STYLE=default` +
+  `&TILEMATRIXSET=PopularWebMercator256` +
+  `&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}` +
+  `&FORMAT=image/jpeg`;
 
-  document.getElementById("close-info").onclick = () => {
-    info.innerHTML = "Click a route to see details";
-  };
-}
+const SENTINEL_NDSI_URL =
+  `https://services.sentinel-hub.com/ogc/wmts/${SENTINEL_INSTANCE_ID}` +
+  `?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0` +
+  `&LAYER=NDSI_SNOW&STYLE=default` +
+  `&TILEMATRIXSET=PopularWebMercator256` +
+  `&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}` +
+  `&FORMAT=image/png`;
 
-const searchInput = document.getElementById("route-search");
-const searchResults = document.getElementById("search-results");
-let selectedIndex = -1;
-
-function fuzzyMatch(str, keyword) {
-  return str.toLowerCase().includes(keyword.toLowerCase());
-}
-
-function zoomToRoute(feature) {
-  const coords = feature.geometry.coordinates;
-  const bounds = coords.reduce(
-    (b, c) => b.extend(c),
-    new mapboxgl.LngLatBounds(coords[0], coords[0])
-  );
-  map.fitBounds(bounds, { padding: 60 });
-}
-
-searchInput.addEventListener("input", (e) => {
-  const q = e.target.value.trim();
-  selectedIndex = -1;
-
-  if (!q) {
-    searchResults.style.display = "none";
-    return;
-  }
-
-  const matches = routeData.features.filter((f) =>
-    fuzzyMatch(f.properties.name, q)
-  );
-
-  if (!matches.length) {
-    searchResults.innerHTML = `<div class="no-result">No results</div>`;
-    searchResults.style.display = "block";
-    return;
-  }
-
-  searchResults.innerHTML = matches
-    .map(
-      (m, i) => `
-      <div class="result-item" data-id="${m.properties.id}" data-index="${i}">
-        ${m.properties.name}
-      </div>`
-    )
-    .join("");
-
-  searchResults.style.display = "block";
-});
-
-searchInput.addEventListener("keydown", (e) => {
-  const items = [...document.querySelectorAll(".result-item")];
-  if (!items.length) return;
-
-  if (e.key === "ArrowDown") {
-    e.preventDefault();
-    selectedIndex = (selectedIndex + 1) % items.length;
-    updateHighlightedItem(items);
-  }
-
-  if (e.key === "ArrowUp") {
-    e.preventDefault();
-    selectedIndex = (selectedIndex - 1 + items.length) % items.length;
-    updateHighlightedItem(items);
-  }
-
-  if (e.key === "Enter") {
-    e.preventDefault();
-    if (selectedIndex >= 0) items[selectedIndex].click();
-  }
-
-  if (e.key === "Escape") {
-    searchResults.style.display = "none";
-    selectedIndex = -1;
-  }
-});
-
-function updateHighlightedItem(items) {
-  items.forEach((el, i) => {
-    if (i === selectedIndex) {
-      el.style.background = "#333";
-      el.style.color = "white";
-    } else {
-      el.style.background = "white";
-      el.style.color = "black";
-    }
-  });
-
-  if (selectedIndex >= 0) {
-    items[selectedIndex].scrollIntoView({
-      block: "nearest",
-      behavior: "smooth",
-    });
-  }
-}
-
-// ----- Layer / Overlay URLs -----
-const TRUE_COLOR_STYLE = "mapbox://styles/mapbox/satellite-streets-v12";
-const SNOW_URL =
-  "https://server.arcgisonline.com/ArcGIS/rest/services/Polar/Arctic_Imagery/MapServer/tile/{z}/{y}/{x}";
-
-// ----- Helpers -----
 function getFirstSymbolLayerId() {
   const layers = map.getStyle().layers;
   for (const layer of layers) {
@@ -365,7 +245,6 @@ function getFirstSymbolLayerId() {
   return null;
 }
 
-// ----- Overlay toggles -----
 function toggleRasterLayer(id, tiles, opacity = 0.8) {
   if (map.getLayer(id)) {
     map.removeLayer(id);
@@ -374,11 +253,9 @@ function toggleRasterLayer(id, tiles, opacity = 0.8) {
   }
 
   map.addSource(id, {
-    id,
     type: "raster",
     tiles: [tiles],
     tileSize: 256,
-    scheme: "xyz",
   });
 
   map.addLayer(
@@ -388,7 +265,7 @@ function toggleRasterLayer(id, tiles, opacity = 0.8) {
       source: id,
       paint: { "raster-opacity": opacity },
     },
-    getFirstSymbolLayerId() || undefined
+    getFirstSymbolLayerId()
   );
 
   return true;
@@ -400,15 +277,6 @@ function toggleSlopeLayer() {
     return false;
   }
 
-  if (!map.getSource("mapbox-dem")) {
-    map.addSource("mapbox-dem", {
-      type: "raster-dem",
-      url: "mapbox://mapbox.terrain-rgb",
-      tileSize: 512,
-      maxzoom: 14,
-    });
-  }
-
   map.addLayer(
     {
       id: "slope",
@@ -416,22 +284,32 @@ function toggleSlopeLayer() {
       source: "mapbox-dem",
       paint: {
         "hillshade-exaggeration": 0.8,
-        "hillshade-shadow-color": "rgba(255, 0, 0, 0.5)",
       },
     },
-    getFirstSymbolLayerId() || undefined
+    getFirstSymbolLayerId()
   );
 
   return true;
 }
 
-// ----- Overlay buttons -----
 document.querySelectorAll(".layer-btn").forEach((btn) => {
   btn.onclick = () => {
     const layer = btn.dataset.layer;
 
+    if (layer === "sentinel") {
+      activeOverlays.sentinel = toggleRasterLayer(
+        "sentinel-true-color",
+        SENTINEL_TRUE_COLOR_URL,
+        1.0
+      );
+    }
+
     if (layer === "snow") {
-      activeOverlays.snow = toggleRasterLayer("snow", SNOW_URL, 0.6);
+      activeOverlays.snow = toggleRasterLayer(
+        "sentinel-ndsi",
+        SENTINEL_NDSI_URL,
+        0.7
+      );
     }
 
     if (layer === "slope") {
@@ -440,20 +318,4 @@ document.querySelectorAll(".layer-btn").forEach((btn) => {
 
     btn.classList.toggle("active", activeOverlays[layer]);
   };
-});
-
-searchResults.addEventListener("click", (e) => {
-  const id = e.target.dataset.id;
-  if (!id) return;
-
-  const feature = routeData.features.find((f) => f.properties.id === id);
-
-  if (feature) {
-    zoomToRoute(feature);
-    highlightRoute(feature.properties.id);
-    showRouteInfo(feature);
-  }
-
-  searchResults.style.display = "none";
-  searchInput.value = "";
 });
