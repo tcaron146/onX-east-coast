@@ -303,9 +303,6 @@ if (activeOverlays.snow) {
 if (activeOverlays.slope) {
   toggleSlopeLayer();
 }
-    if (activeOverlays.snow) {
-      toggleRasterLayer("snow", SNOW_URL, 0.6);
-    }
     if (activeOverlays.slope) {
       toggleSlopeLayer();
     }
@@ -501,25 +498,32 @@ document.querySelectorAll(".layer-btn").forEach((btn) => {
   btn.onclick = () => {
     const layer = btn.dataset.layer;
 
-    if (layer === "truecolor") {
-      activeOverlays.truecolor = toggleRasterLayer(
-        "truecolor",
-        TRUE_COLOR_URL,
-        0.9,
+    if (layer === "sentinel") {
+      activeOverlays.sentinel = toggleRasterLayer(
+        "sentinel-true-color",
+        SENTINEL_TRUE_COLOR_URL,
+        1.0
       );
+      btn.classList.toggle("active", activeOverlays.sentinel);
     }
 
     if (layer === "snow") {
-      activeOverlays.snow = toggleRasterLayer("snow", SNOW_URL, 0.6);
+      activeOverlays.snow = toggleRasterLayer(
+        "sentinel-ndsi",
+        SENTINEL_NDSI_URL,
+        0.7
+      );
+      btn.classList.toggle("active", activeOverlays.snow);
     }
 
     if (layer === "slope") {
       activeOverlays.slope = toggleSlopeLayer();
+      btn.classList.toggle("active", activeOverlays.slope);
     }
-
-    btn.classList.toggle("active", activeOverlays[layer]);
   };
 });
+
+
 
 searchResults.addEventListener("click", (e) => {
   const id = e.target.dataset.id;
