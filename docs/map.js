@@ -286,7 +286,7 @@ toggle.onclick = () => {
       toggleRasterLayer("truecolor", TRUE_COLOR_URL, 0.9);
     }
     if (activeOverlays.snow) {
-      toggleRasterLayer("snow", SNOW_URL, 0.7);
+      toggleRasterLayer("snow", getSnowLayerUrl(), 0.7);
     }
     if (activeOverlays.slope) {
       toggleSlopeLayer();
@@ -389,17 +389,21 @@ function updateHighlightedItem(items) {
 }
 const SENTINEL_INSTANCE_ID = "cd70df88-be3e-4fce-8a0b-92732b9f6e42";
 
-const TRUE_COLOR_URL =
-  `https://services.sentinel-hub.com/ogc/wmts/${SENTINEL_INSTANCE_ID}` +
-  `?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0` +
-  `&LAYER=TRUE_COLOR&TILEMATRIXSET=PopularWebMercator256` +
-  `&FORMAT=image/jpeg&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}`;
+// Alternative: Using public satellite imagery services
+// TRUE COLOR: Recent Sentinel-2 imagery
+const TRUE_COLOR_URL = 
+  `https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2022_3857/default/g/{z}/{y}/{x}.jpg`;
 
-const SNOW_URL =
-  `https://services.sentinel-hub.com/ogc/wmts/${SENTINEL_INSTANCE_ID}` +
-  `?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0` +
-  `&LAYER=SNOW_MASK&TILEMATRIXSET=PopularWebMercator256` +
-  `&FORMAT=image/png&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}`;
+// SNOW: MODIS snow cover (updated daily)
+const SNOW_URL = 
+  `https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_Snow_Cover/default/{time}/GoogleMapsCompatible_Level8/{z}/{y}/{x}.png`;
+
+// For snow layer, we need to add a time parameter
+function getSnowLayerUrl() {
+  const today = new Date();
+  const timeStr = today.toISOString().split('T')[0];
+  return SNOW_URL.replace('{time}', timeStr);
+}
 
 function getFirstSymbolLayerId() {
   const layers = map.getStyle().layers;
@@ -413,13 +417,17 @@ function toggleRasterLayer(id, tiles, opacity = 0.8) {
   if (map.getLayer(id)) {
     map.removeLayer(id);
     map.removeSource(id);
+    console.log(`Removed layer: ${id}`);
     return false;
   }
+
+  console.log(`Adding layer: ${id} with tiles:`, tiles);
 
   map.addSource(id, {
     type: "raster",
     tiles: [tiles],
     tileSize: 256,
+    scheme: "xyz"
   });
 
   map.addLayer(
@@ -432,6 +440,7 @@ function toggleRasterLayer(id, tiles, opacity = 0.8) {
     getFirstSymbolLayerId(),
   );
 
+  console.log(`Layer ${id} added successfully`);
   return true;
 }
 
@@ -482,7 +491,8 @@ document.querySelectorAll(".layer-btn").forEach((btn) => {
     }
 
     if (layer === "snow") {
-      activeOverlays.snow = toggleRasterLayer("snow", SNOW_URL, 0.7);
+      // Use the function to get current date for snow layer
+      activeOverlays.snow = toggleRasterLayer("snow", getSnowLayerUrl(), 0.7);
     }
 
     if (layer === "slope") {
