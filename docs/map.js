@@ -193,6 +193,14 @@ function addDrawControls() {
   document.querySelector(".mapboxgl-ctrl-top-left").style.zIndex = "9999";
 }
 
+// NEW: Function to remove draw controls
+function removeDrawControls() {
+  if (!drawAdded) return;
+  
+  map.removeControl(draw);
+  drawAdded = false;
+}
+
 async function loadData() {
   const [routesRes, metadataRes] = await Promise.all([
     fetch("data/routes.geojson"),
@@ -266,7 +274,9 @@ toggle.onclick = () => {
   );
 
   map.once("styledata", () => {
-    drawAdded = false;
+    // FIX: Remove draw controls before re-adding
+    removeDrawControls();
+    
     add3DTerrain();
     addRouteLayers();
     addDrawControls();
@@ -419,43 +429,38 @@ function toggleRasterLayer(id, tiles, opacity = 0.8) {
       source: id,
       paint: { "raster-opacity": opacity },
     },
-    getFirstSymbolLayerId(), // 👈 key line
+    getFirstSymbolLayerId(),
   );
 
   return true;
 }
 
+// FIX: Improved toggleSlopeLayer function
 function toggleSlopeLayer() {
   if (map.getLayer("slope")) {
     map.removeLayer("slope");
+    // Don't remove the mapbox-dem source since it's used for terrain
     return false;
+  }
+
+  // Make sure the DEM source exists
+  if (!map.getSource("mapbox-dem")) {
+    map.addSource("mapbox-dem", {
+      type: "raster-dem",
+      url: "mapbox://mapbox.terrain-rgb",
+      tileSize: 512,
+      maxzoom: 14,
+    });
   }
 
   map.addLayer(
     {
       id: "slope",
-      type: "raster",
+      type: "hillshade",
       source: "mapbox-dem",
       paint: {
-        "raster-opacity": 0.85,
-        "raster-color": [
-          "interpolate",
-          ["linear"],
-          ["raster-value"],
-
-          0,
-          "rgba(0, 150, 0, 0.0)", // flat
-          15,
-          "rgba(0, 200, 0, 0.6)", // mellow
-          25,
-          "rgba(255, 255, 0, 0.7)", // steep
-          30,
-          "rgba(255, 165, 0, 0.8)", // avalanche start
-          35,
-          "rgba(255, 0, 0, 0.85)", // dangerous
-          45,
-          "rgba(150, 0, 150, 0.9)", // extreme
-        ],
+        "hillshade-exaggeration": 0.8,
+        "hillshade-shadow-color": "rgba(255, 0, 0, 0.5)",
       },
     },
     getFirstSymbolLayerId(),
