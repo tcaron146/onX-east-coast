@@ -19,6 +19,8 @@ let activeOverlays = {
   slope: false,
 };
 
+
+
 const draw = new MapboxDraw({
   displayControlsDefault: false,
   controls: {
@@ -48,7 +50,8 @@ const draw = new MapboxDraw({
 });
 
 map.on("draw.create", (e) => {
-  downloadDrawnRoute(e.features[0]);
+  const feature = e.features[0];
+  downloadDrawnRoute(feature);
 });
 
 function downloadDrawnRoute(feature) {
@@ -68,8 +71,10 @@ function downloadDrawnRoute(feature) {
 
 function toggleTerrain() {
   terrainEnabled = !terrainEnabled;
-  if (terrainEnabled) add3DTerrain();
-  else {
+
+  if (terrainEnabled) {
+    add3DTerrain();
+  } else {
     map.setTerrain(null);
     map.easeTo({ pitch: 0, bearing: 0 });
   }
@@ -118,7 +123,6 @@ function addRouteLayers() {
       filter: ["==", "id", ""],
     });
   }
-
   if (!map.getLayer("route-labels")) {
     map.addLayer({
       id: "route-labels",
@@ -150,7 +154,10 @@ function add3DTerrain() {
     });
   }
 
-  map.setTerrain({ source: "mapbox-dem", exaggeration: 1.4 });
+  map.setTerrain({
+    source: "mapbox-dem",
+    exaggeration: 1.4,
+  });
 
   if (!map.getLayer("sky")) {
     map.addLayer({
@@ -164,7 +171,11 @@ function add3DTerrain() {
     });
   }
 
-  map.easeTo({ pitch: 65, bearing: -20, duration: 1200 });
+  map.easeTo({
+    pitch: 65,
+    bearing: -20,
+    duration: 1200,
+  });
 }
 
 function highlightRoute(routeId) {
@@ -175,14 +186,19 @@ function highlightRoute(routeId) {
 }
 
 let drawAdded = false;
+
 function addDrawControls() {
   if (drawAdded) return;
+
   map.addControl(draw, "top-left");
   drawAdded = true;
+  document.querySelector(".mapboxgl-ctrl-top-left").style.zIndex = "9999";
 }
 
+// NEW: Function to remove draw controls
 function removeDrawControls() {
   if (!drawAdded) return;
+  
   map.removeControl(draw);
   drawAdded = false;
 }
@@ -206,10 +222,45 @@ async function loadData() {
       highlightRoute(feature.properties.id);
       showRouteInfo(feature);
     });
+
+    map.on("mouseenter", "route-hitbox", () => {
+      map.getCanvas().style.cursor = "pointer";
+    });
+    map.on("mouseleave", "route-hitbox", () => {
+      map.getCanvas().style.cursor = "";
+    });
   });
 }
 
 loadData();
+
+function showRouteInfo(feature) {
+  const props = feature.properties;
+  const meta = metadata.find((m) => m.id === props.id) || {};
+  const info = document.getElementById("info");
+
+  info.innerHTML = `
+    <button id="close-info" style="
+      float:right;
+      border:none;
+      background:#e74c3c;
+      color:white;
+      font-weight:bold;
+      padding:2px 6px;
+      border-radius:3px;
+      cursor:pointer;
+    ">×</button>
+
+    <div class="route-title">${props.name}</div>
+    <div><strong>Difficulty:</strong> ${meta.difficulty || "Unknown"}</div>
+    <div><strong>Vertical:</strong> ${meta.vertical_drop || "Unknown"} ft</div>
+    <div><strong>Hazards:</strong> ${meta.hazards || "None"}</div>
+  `;
+
+  document.getElementById("close-info").onclick = () => {
+    info.innerHTML = "Click a route to see details";
+  };
+}
 
 const toggle = document.getElementById("map-style-toggle");
 let current = "topo";
@@ -221,28 +272,139 @@ toggle.onclick = () => {
   map.setStyle(
     current === "topo"
       ? "mapbox://styles/mapbox/outdoors-v12"
-      : "mapbox://styles/mapbox/satellite-streets-v12"
+      : "mapbox://styles/mapbox/satellite-streets-v12",
   );
 
   map.once("styledata", () => {
+    // FIX: Remove draw controls before re-adding
     removeDrawControls();
+    
     add3DTerrain();
     addRouteLayers();
     addDrawControls();
     if (selectedRouteId) highlightRoute(selectedRouteId);
 
     if (activeOverlays.sentinel) {
-      toggleRasterLayer("sentinel-true-color", SENTINEL_TRUE_COLOR_URL, 1.0);
-    }
+  toggleRasterLayer(
+    "sentinel-true-color",
+    SENTINEL_TRUE_COLOR_URL,
+    1.0
+  );
+}
+
+if (activeOverlays.snow) {
+  toggleRasterLayer(
+    "sentinel-ndsi",
+    SENTINEL_NDSI_URL,
+    0.7
+  );
+}
+
+if (activeOverlays.slope) {
+  toggleSlopeLayer();
+}
     if (activeOverlays.snow) {
-      toggleRasterLayer("sentinel-ndsi", SENTINEL_NDSI_URL, 0.7);
+      toggleRasterLayer("snow", SNOW_URL, 0.6);
     }
-    if (activeOverlays.slope) toggleSlopeLayer();
+    if (activeOverlays.slope) {
+      toggleSlopeLayer();
+    }
   });
 };
 
-/* ---------- SENTINEL ---------- */
+const searchInput = document.getElementById("route-search");
+const searchResults = document.getElementById("search-results");
+let selectedIndex = -1;
 
+function fuzzyMatch(str, keyword) {
+  return str.toLowerCase().includes(keyword.toLowerCase());
+}
+
+function zoomToRoute(feature) {
+  const coords = feature.geometry.coordinates;
+  const bounds = coords.reduce(
+    (b, c) => b.extend(c),
+    new mapboxgl.LngLatBounds(coords[0], coords[0]),
+  );
+  map.fitBounds(bounds, { padding: 60 });
+}
+
+searchInput.addEventListener("input", (e) => {
+  const q = e.target.value.trim();
+  selectedIndex = -1;
+
+  if (!q) {
+    searchResults.style.display = "none";
+    return;
+  }
+
+  const matches = routeData.features.filter((f) =>
+    fuzzyMatch(f.properties.name, q),
+  );
+
+  if (!matches.length) {
+    searchResults.innerHTML = `<div class="no-result">No results</div>`;
+    searchResults.style.display = "block";
+    return;
+  }
+
+  searchResults.innerHTML = matches
+    .map(
+      (m, i) => `
+      <div class="result-item" data-id="${m.properties.id}" data-index="${i}">
+        ${m.properties.name}
+      </div>`,
+    )
+    .join("");
+
+  searchResults.style.display = "block";
+});
+
+searchInput.addEventListener("keydown", (e) => {
+  const items = [...document.querySelectorAll(".result-item")];
+  if (!items.length) return;
+
+  if (e.key === "ArrowDown") {
+    e.preventDefault();
+    selectedIndex = (selectedIndex + 1) % items.length;
+    updateHighlightedItem(items);
+  }
+
+  if (e.key === "ArrowUp") {
+    e.preventDefault();
+    selectedIndex = (selectedIndex - 1 + items.length) % items.length;
+    updateHighlightedItem(items);
+  }
+
+  if (e.key === "Enter") {
+    e.preventDefault();
+    if (selectedIndex >= 0) items[selectedIndex].click();
+  }
+
+  if (e.key === "Escape") {
+    searchResults.style.display = "none";
+    selectedIndex = -1;
+  }
+});
+
+function updateHighlightedItem(items) {
+  items.forEach((el, i) => {
+    if (i === selectedIndex) {
+      el.style.background = "#333";
+      el.style.color = "white";
+    } else {
+      el.style.background = "white";
+      el.style.color = "black";
+    }
+  });
+
+  if (selectedIndex >= 0) {
+    items[selectedIndex].scrollIntoView({
+      block: "nearest",
+      behavior: "smooth",
+    });
+  }
+}
 const SENTINEL_INSTANCE_ID = "cd70df88-be3e-4fce-8a0b-92732b9f6e42";
 
 const SENTINEL_TRUE_COLOR_URL =
@@ -253,6 +415,7 @@ const SENTINEL_TRUE_COLOR_URL =
   `&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}` +
   `&FORMAT=image/jpeg`;
 
+// Sentinel-2 NDSI Snow (transparent PNG)
 const SENTINEL_NDSI_URL =
   `https://services.sentinel-hub.com/ogc/wmts/${SENTINEL_INSTANCE_ID}` +
   `?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0` +
@@ -273,13 +436,17 @@ function toggleRasterLayer(id, tiles, opacity = 0.8) {
   if (map.getLayer(id)) {
     map.removeLayer(id);
     map.removeSource(id);
+    console.log(`Removed layer: ${id}`);
     return false;
   }
+
+  console.log(`Adding layer: ${id} with tiles:`, tiles);
 
   map.addSource(id, {
     type: "raster",
     tiles: [tiles],
     tileSize: 256,
+    scheme: "xyz"
   });
 
   map.addLayer(
@@ -289,16 +456,29 @@ function toggleRasterLayer(id, tiles, opacity = 0.8) {
       source: id,
       paint: { "raster-opacity": opacity },
     },
-    getFirstSymbolLayerId()
+    getFirstSymbolLayerId(),
   );
 
+  console.log(`Layer ${id} added successfully`);
   return true;
 }
 
+// FIX: Improved toggleSlopeLayer function
 function toggleSlopeLayer() {
   if (map.getLayer("slope")) {
     map.removeLayer("slope");
+    // Don't remove the mapbox-dem source since it's used for terrain
     return false;
+  }
+
+  // Make sure the DEM source exists
+  if (!map.getSource("mapbox-dem")) {
+    map.addSource("mapbox-dem", {
+      type: "raster-dem",
+      url: "mapbox://mapbox.terrain-rgb",
+      tileSize: 512,
+      maxzoom: 14,
+    });
   }
 
   map.addLayer(
@@ -306,9 +486,12 @@ function toggleSlopeLayer() {
       id: "slope",
       type: "hillshade",
       source: "mapbox-dem",
-      paint: { "hillshade-exaggeration": 0.8 },
+      paint: {
+        "hillshade-exaggeration": 0.8,
+        "hillshade-shadow-color": "rgba(255, 0, 0, 0.5)",
+      },
     },
-    getFirstSymbolLayerId()
+    getFirstSymbolLayerId(),
   );
 
   return true;
@@ -318,20 +501,16 @@ document.querySelectorAll(".layer-btn").forEach((btn) => {
   btn.onclick = () => {
     const layer = btn.dataset.layer;
 
-    if (layer === "sentinel") {
-      activeOverlays.sentinel = toggleRasterLayer(
-        "sentinel-true-color",
-        SENTINEL_TRUE_COLOR_URL,
-        1.0
+    if (layer === "truecolor") {
+      activeOverlays.truecolor = toggleRasterLayer(
+        "truecolor",
+        TRUE_COLOR_URL,
+        0.9,
       );
     }
 
     if (layer === "snow") {
-      activeOverlays.snow = toggleRasterLayer(
-        "sentinel-ndsi",
-        SENTINEL_NDSI_URL,
-        0.7
-      );
+      activeOverlays.snow = toggleRasterLayer("snow", SNOW_URL, 0.6);
     }
 
     if (layer === "slope") {
@@ -340,4 +519,20 @@ document.querySelectorAll(".layer-btn").forEach((btn) => {
 
     btn.classList.toggle("active", activeOverlays[layer]);
   };
+});
+
+searchResults.addEventListener("click", (e) => {
+  const id = e.target.dataset.id;
+  if (!id) return;
+
+  const feature = routeData.features.find((f) => f.properties.id === id);
+
+  if (feature) {
+    zoomToRoute(feature);
+    highlightRoute(feature.properties.id);
+    showRouteInfo(feature);
+  }
+
+  searchResults.style.display = "none";
+  searchInput.value = "";
 });
