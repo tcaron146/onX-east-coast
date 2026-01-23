@@ -48,8 +48,7 @@ const draw = new MapboxDraw({
 });
 
 map.on("draw.create", (e) => {
-  const feature = e.features[0];
-  downloadDrawnRoute(feature);
+  downloadDrawnRoute(e.features[0]);
 });
 
 function downloadDrawnRoute(feature) {
@@ -69,10 +68,8 @@ function downloadDrawnRoute(feature) {
 
 function toggleTerrain() {
   terrainEnabled = !terrainEnabled;
-
-  if (terrainEnabled) {
-    add3DTerrain();
-  } else {
+  if (terrainEnabled) add3DTerrain();
+  else {
     map.setTerrain(null);
     map.easeTo({ pitch: 0, bearing: 0 });
   }
@@ -153,10 +150,7 @@ function add3DTerrain() {
     });
   }
 
-  map.setTerrain({
-    source: "mapbox-dem",
-    exaggeration: 1.4,
-  });
+  map.setTerrain({ source: "mapbox-dem", exaggeration: 1.4 });
 
   if (!map.getLayer("sky")) {
     map.addLayer({
@@ -170,11 +164,7 @@ function add3DTerrain() {
     });
   }
 
-  map.easeTo({
-    pitch: 65,
-    bearing: -20,
-    duration: 1200,
-  });
+  map.easeTo({ pitch: 65, bearing: -20, duration: 1200 });
 }
 
 function highlightRoute(routeId) {
@@ -185,12 +175,10 @@ function highlightRoute(routeId) {
 }
 
 let drawAdded = false;
-
 function addDrawControls() {
   if (drawAdded) return;
   map.addControl(draw, "top-left");
   drawAdded = true;
-  document.querySelector(".mapboxgl-ctrl-top-left").style.zIndex = "9999";
 }
 
 function removeDrawControls() {
@@ -212,14 +200,50 @@ async function loadData() {
     add3DTerrain();
     addRouteLayers();
     addDrawControls();
+
+    map.on("click", "route-hitbox", (e) => {
+      const feature = e.features[0];
+      highlightRoute(feature.properties.id);
+      showRouteInfo(feature);
+    });
   });
 }
 
 loadData();
 
-/* ---------------- SENTINEL ---------------- */
+const toggle = document.getElementById("map-style-toggle");
+let current = "topo";
 
-const SENTINEL_INSTANCE_ID = "YOUR_INSTANCE_ID_HERE";
+toggle.onclick = () => {
+  current = current === "topo" ? "sat" : "topo";
+  toggle.innerText = current === "topo" ? "Satellite" : "Topo";
+
+  map.setStyle(
+    current === "topo"
+      ? "mapbox://styles/mapbox/outdoors-v12"
+      : "mapbox://styles/mapbox/satellite-streets-v12"
+  );
+
+  map.once("styledata", () => {
+    removeDrawControls();
+    add3DTerrain();
+    addRouteLayers();
+    addDrawControls();
+    if (selectedRouteId) highlightRoute(selectedRouteId);
+
+    if (activeOverlays.sentinel) {
+      toggleRasterLayer("sentinel-true-color", SENTINEL_TRUE_COLOR_URL, 1.0);
+    }
+    if (activeOverlays.snow) {
+      toggleRasterLayer("sentinel-ndsi", SENTINEL_NDSI_URL, 0.7);
+    }
+    if (activeOverlays.slope) toggleSlopeLayer();
+  });
+};
+
+/* ---------- SENTINEL ---------- */
+
+const SENTINEL_INSTANCE_ID = "cd70df88-be3e-4fce-8a0b-92732b9f6e42";
 
 const SENTINEL_TRUE_COLOR_URL =
   `https://services.sentinel-hub.com/ogc/wmts/${SENTINEL_INSTANCE_ID}` +
@@ -282,9 +306,7 @@ function toggleSlopeLayer() {
       id: "slope",
       type: "hillshade",
       source: "mapbox-dem",
-      paint: {
-        "hillshade-exaggeration": 0.8,
-      },
+      paint: { "hillshade-exaggeration": 0.8 },
     },
     getFirstSymbolLayerId()
   );
