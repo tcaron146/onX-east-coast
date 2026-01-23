@@ -14,7 +14,6 @@ let selectedRouteId = null;
 let terrainEnabled = true;
 
 let activeOverlays = {
-  truecolor: false,
   snow: false,
   slope: false,
 };
@@ -121,6 +120,7 @@ function addRouteLayers() {
       filter: ["==", "id", ""],
     });
   }
+
   if (!map.getLayer("route-labels")) {
     map.addLayer({
       id: "route-labels",
@@ -187,16 +187,13 @@ let drawAdded = false;
 
 function addDrawControls() {
   if (drawAdded) return;
-
   map.addControl(draw, "top-left");
   drawAdded = true;
   document.querySelector(".mapboxgl-ctrl-top-left").style.zIndex = "9999";
 }
 
-// NEW: Function to remove draw controls
 function removeDrawControls() {
   if (!drawAdded) return;
-  
   map.removeControl(draw);
   drawAdded = false;
 }
@@ -260,40 +257,6 @@ function showRouteInfo(feature) {
   };
 }
 
-const toggle = document.getElementById("map-style-toggle");
-let current = "topo";
-
-toggle.onclick = () => {
-  current = current === "topo" ? "sat" : "topo";
-  toggle.innerText = current === "topo" ? "Satellite" : "Topo";
-
-  map.setStyle(
-    current === "topo"
-      ? "mapbox://styles/mapbox/outdoors-v12"
-      : "mapbox://styles/mapbox/satellite-streets-v12",
-  );
-
-  map.once("styledata", () => {
-    // FIX: Remove draw controls before re-adding
-    removeDrawControls();
-    
-    add3DTerrain();
-    addRouteLayers();
-    addDrawControls();
-    if (selectedRouteId) highlightRoute(selectedRouteId);
-
-    if (activeOverlays.truecolor) {
-      toggleRasterLayer("truecolor", TRUE_COLOR_URL, 0.9);
-    }
-    if (activeOverlays.snow) {
-      toggleRasterLayer("snow", SNOW_URL, 0.6);
-    }
-    if (activeOverlays.slope) {
-      toggleSlopeLayer();
-    }
-  });
-};
-
 const searchInput = document.getElementById("route-search");
 const searchResults = document.getElementById("search-results");
 let selectedIndex = -1;
@@ -306,7 +269,7 @@ function zoomToRoute(feature) {
   const coords = feature.geometry.coordinates;
   const bounds = coords.reduce(
     (b, c) => b.extend(c),
-    new mapboxgl.LngLatBounds(coords[0], coords[0]),
+    new mapboxgl.LngLatBounds(coords[0], coords[0])
   );
   map.fitBounds(bounds, { padding: 60 });
 }
@@ -321,7 +284,7 @@ searchInput.addEventListener("input", (e) => {
   }
 
   const matches = routeData.features.filter((f) =>
-    fuzzyMatch(f.properties.name, q),
+    fuzzyMatch(f.properties.name, q)
   );
 
   if (!matches.length) {
@@ -335,7 +298,7 @@ searchInput.addEventListener("input", (e) => {
       (m, i) => `
       <div class="result-item" data-id="${m.properties.id}" data-index="${i}">
         ${m.properties.name}
-      </div>`,
+      </div>`
     )
     .join("");
 
@@ -387,18 +350,13 @@ function updateHighlightedItem(items) {
     });
   }
 }
-const SENTINEL_INSTANCE_ID = "cd70df88-be3e-4fce-8a0b-92732b9f6e42";
 
-// Using reliable public satellite imagery services
-// TRUE COLOR: Mapbox Satellite (high quality, always available)
-const TRUE_COLOR_URL = 
-  `https://api.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}@2x.jpg?access_token=${mapboxgl.accessToken}`;
+// ----- Layer / Overlay URLs -----
+const TRUE_COLOR_STYLE = "mapbox://styles/mapbox/satellite-streets-v12";
+const SNOW_URL =
+  "https://server.arcgisonline.com/ArcGIS/rest/services/Polar/Arctic_Imagery/MapServer/tile/{z}/{y}/{x}";
 
-// SNOW: Using Sentinel Hub with NDSI (Normalized Difference Snow Index)
-// This requires a different approach - we'll use a simpler snow visualization
-const SNOW_URL = 
-  `https://server.arcgisonline.com/ArcGIS/rest/services/Polar/Arctic_Imagery/MapServer/tile/{z}/{y}/{x}`;
-
+// ----- Helpers -----
 function getFirstSymbolLayerId() {
   const layers = map.getStyle().layers;
   for (const layer of layers) {
@@ -407,21 +365,20 @@ function getFirstSymbolLayerId() {
   return null;
 }
 
+// ----- Overlay toggles -----
 function toggleRasterLayer(id, tiles, opacity = 0.8) {
   if (map.getLayer(id)) {
     map.removeLayer(id);
     map.removeSource(id);
-    console.log(`Removed layer: ${id}`);
     return false;
   }
 
-  console.log(`Adding layer: ${id} with tiles:`, tiles);
-
   map.addSource(id, {
+    id,
     type: "raster",
     tiles: [tiles],
     tileSize: 256,
-    scheme: "xyz"
+    scheme: "xyz",
   });
 
   map.addLayer(
@@ -431,22 +388,18 @@ function toggleRasterLayer(id, tiles, opacity = 0.8) {
       source: id,
       paint: { "raster-opacity": opacity },
     },
-    getFirstSymbolLayerId(),
+    getFirstSymbolLayerId() || undefined
   );
 
-  console.log(`Layer ${id} added successfully`);
   return true;
 }
 
-// FIX: Improved toggleSlopeLayer function
 function toggleSlopeLayer() {
   if (map.getLayer("slope")) {
     map.removeLayer("slope");
-    // Don't remove the mapbox-dem source since it's used for terrain
     return false;
   }
 
-  // Make sure the DEM source exists
   if (!map.getSource("mapbox-dem")) {
     map.addSource("mapbox-dem", {
       type: "raster-dem",
@@ -466,23 +419,16 @@ function toggleSlopeLayer() {
         "hillshade-shadow-color": "rgba(255, 0, 0, 0.5)",
       },
     },
-    getFirstSymbolLayerId(),
+    getFirstSymbolLayerId() || undefined
   );
 
   return true;
 }
 
+// ----- Overlay buttons -----
 document.querySelectorAll(".layer-btn").forEach((btn) => {
   btn.onclick = () => {
     const layer = btn.dataset.layer;
-
-    if (layer === "truecolor") {
-      activeOverlays.truecolor = toggleRasterLayer(
-        "truecolor",
-        TRUE_COLOR_URL,
-        0.9,
-      );
-    }
 
     if (layer === "snow") {
       activeOverlays.snow = toggleRasterLayer("snow", SNOW_URL, 0.6);
