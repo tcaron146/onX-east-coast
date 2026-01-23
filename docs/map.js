@@ -13,6 +13,13 @@ let metadata = null;
 let selectedRouteId = null;
 let terrainEnabled = true;
 
+let activeOverlays = {
+  truecolor: false,
+  snow: false,
+  slope: false
+};
+
+
 const draw = new MapboxDraw({
   displayControlsDefault: false,
   controls: {
@@ -262,13 +269,22 @@ toggle.onclick = () => {
   );
 
   map.once("styledata", () => {
-    drawAdded = false;
-    add3DTerrain();   
-    addRouteLayers();
-    addHillshadeLayer();
-    addDrawControls();
-    if (selectedRouteId) highlightRoute(selectedRouteId);
-  });
+  drawAdded = false;
+  add3DTerrain();
+  addRouteLayers();
+  addDrawControls();
+  if (selectedRouteId) highlightRoute(selectedRouteId);
+
+  if (activeOverlays.truecolor) {
+    toggleRasterLayer("truecolor", TRUE_COLOR_URL, 0.9);
+  }
+  if (activeOverlays.snow) {
+    toggleRasterLayer("snow", SNOW_URL, 0.7);
+  }
+  if (activeOverlays.slope) {
+    toggleSlopeLayer();
+  }
+});
 };
 
 const searchInput = document.getElementById("route-search");
@@ -364,6 +380,81 @@ function updateHighlightedItem(items) {
     });
   }
 }
+const SENTINEL_INSTANCE_ID = "cd70df88-be3e-4fce-8a0b-92732b9f6e42";
+
+const TRUE_COLOR_URL =
+  `https://services.sentinel-hub.com/ogc/wmts/${SENTINEL_INSTANCE_ID}` +
+  `?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0` +
+  `&LAYER=TRUE_COLOR&TILEMATRIXSET=PopularWebMercator256` +
+  `&FORMAT=image/jpeg&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}`;
+
+const SNOW_URL =
+  `https://services.sentinel-hub.com/ogc/wmts/${SENTINEL_INSTANCE_ID}` +
+  `?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0` +
+  `&LAYER=SNOW_MASK&TILEMATRIXSET=PopularWebMercator256` +
+  `&FORMAT=image/png&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}`;
+
+function toggleRasterLayer(id, tiles, opacity = 0.8) {
+  if (map.getLayer(id)) {
+    map.removeLayer(id);
+    map.removeSource(id);
+    return false;
+  }
+
+  map.addSource(id, {
+    type: "raster",
+    tiles: [tiles],
+    tileSize: 256
+  });
+
+  map.addLayer({
+    id,
+    type: "raster",
+    source: id,
+    paint: { "raster-opacity": opacity }
+  });
+
+  return true;
+}
+
+function toggleSlopeLayer() {
+  if (map.getLayer("slope")) {
+    map.removeLayer("slope");
+    return false;
+  }
+
+  map.addLayer({
+    id: "slope",
+    type: "hillshade",
+    source: "mapbox-dem",
+    paint: { "hillshade-exaggeration": 0.9 }
+  });
+
+  return true;
+}
+
+document.querySelectorAll(".layer-btn").forEach((btn) => {
+  btn.onclick = () => {
+    const layer = btn.dataset.layer;
+
+    if (layer === "truecolor") {
+      activeOverlays.truecolor =
+        toggleRasterLayer("truecolor", TRUE_COLOR_URL, 0.9);
+    }
+
+    if (layer === "snow") {
+      activeOverlays.snow =
+        toggleRasterLayer("snow", SNOW_URL, 0.7);
+    }
+
+    if (layer === "slope") {
+      activeOverlays.slope = toggleSlopeLayer();
+    }
+
+    btn.classList.toggle("active", activeOverlays[layer]);
+  };
+});
+
 
 searchResults.addEventListener("click", (e) => {
   const id = e.target.dataset.id;
