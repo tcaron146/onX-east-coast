@@ -410,7 +410,8 @@ const SENTINEL_TRUE_COLOR_URL =
   `&LAYER=TRUE_COLOR&STYLE=default` +
   `&TILEMATRIXSET=PopularWebMercator256` +
   `&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}` +
-  `&FORMAT=image/jpeg`;
+  `&FORMAT=image/jpeg` +
+  `&cd70df88-be3e-4fce-8a0b-92732b9f6e42`;
 
 // Sentinel-2 NDSI Snow (transparent PNG)
 const SENTINEL_NDSI_URL =
@@ -419,7 +420,8 @@ const SENTINEL_NDSI_URL =
   `&LAYER=NDSI_SNOW&STYLE=default` +
   `&TILEMATRIXSET=PopularWebMercator256` +
   `&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}` +
-  `&FORMAT=image/png`;
+  `&FORMAT=image/png` +
+  `&cd70df88-be3e-4fce-8a0b-92732b9f6e42`;
 
 function getFirstSymbolLayerId() {
   const layers = map.getStyle().layers;
