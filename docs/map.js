@@ -14,12 +14,10 @@ let selectedRouteId = null;
 let terrainEnabled = true;
 
 let activeOverlays = {
-  sentinel: false,
+  truecolor: false,
   snow: false,
   slope: false,
 };
-
-
 
 const draw = new MapboxDraw({
   displayControlsDefault: false,
@@ -284,25 +282,12 @@ toggle.onclick = () => {
     addDrawControls();
     if (selectedRouteId) highlightRoute(selectedRouteId);
 
-    if (activeOverlays.sentinel) {
-  toggleRasterLayer(
-    "sentinel-true-color",
-    SENTINEL_TRUE_COLOR_URL,
-    1.0
-  );
-}
-
-if (activeOverlays.snow) {
-  toggleRasterLayer(
-    "sentinel-ndsi",
-    SENTINEL_NDSI_URL,
-    0.7
-  );
-}
-
-if (activeOverlays.slope) {
-  toggleSlopeLayer();
-}
+    if (activeOverlays.truecolor) {
+      toggleRasterLayer("truecolor", TRUE_COLOR_URL, 0.9);
+    }
+    if (activeOverlays.snow) {
+      toggleRasterLayer("snow", getSnowLayerUrl(), 0.7);
+    }
     if (activeOverlays.slope) {
       toggleSlopeLayer();
     }
@@ -404,26 +389,21 @@ function updateHighlightedItem(items) {
 }
 const SENTINEL_INSTANCE_ID = "cd70df88-be3e-4fce-8a0b-92732b9f6e42";
 
-const SENTINEL_TRUE_COLOR_URL =
-  `https://services.sentinel-hub.com/ogc/wmts/${SENTINEL_INSTANCE_ID}` +
-  `?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0` +
-  `&LAYER=TRUE_COLOR&STYLE=default` +
-  `&TILEMATRIXSET=PopularWebMercator256` +
-  `&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}` +
-  `&FORMAT=image/jpeg` +
-  `&TIME=2024-01-01/2024-12-31` +
-  `&APIKEY=cd70df88-be3e-4fce-8a0b-92732b9f6e42`;
+// Alternative: Using public satellite imagery services
+// TRUE COLOR: Recent Sentinel-2 imagery
+const TRUE_COLOR_URL = 
+  `https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2022_3857/default/g/{z}/{y}/{x}.jpg`;
 
-// Sentinel-2 NDSI Snow (transparent PNG)
-const SENTINEL_NDSI_URL =
-  `https://services.sentinel-hub.com/ogc/wmts/${SENTINEL_INSTANCE_ID}` +
-  `?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0` +
-  `&LAYER=NDSI_SNOW&STYLE=default` +
-  `&TILEMATRIXSET=PopularWebMercator256` +
-  `&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}` +
-  `&FORMAT=image/png` +
-  `&TIME=2024-01-01/2024-12-31` +
-  `&APIKEY=cd70df88-be3e-4fce-8a0b-92732b9f6e42`;
+// SNOW: MODIS snow cover (updated daily)
+const SNOW_URL = 
+  `https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_Snow_Cover/default/{time}/GoogleMapsCompatible_Level8/{z}/{y}/{x}.png`;
+
+// For snow layer, we need to add a time parameter
+function getSnowLayerUrl() {
+  const today = new Date();
+  const timeStr = today.toISOString().split('T')[0];
+  return SNOW_URL.replace('{time}', timeStr);
+}
 
 function getFirstSymbolLayerId() {
   const layers = map.getStyle().layers;
@@ -502,32 +482,26 @@ document.querySelectorAll(".layer-btn").forEach((btn) => {
   btn.onclick = () => {
     const layer = btn.dataset.layer;
 
-    if (layer === "sentinel") {
-      activeOverlays.sentinel = toggleRasterLayer(
-        "sentinel-true-color",
-        SENTINEL_TRUE_COLOR_URL,
-        1.0
+    if (layer === "truecolor") {
+      activeOverlays.truecolor = toggleRasterLayer(
+        "truecolor",
+        TRUE_COLOR_URL,
+        0.9,
       );
-      btn.classList.toggle("active", activeOverlays.sentinel);
     }
 
     if (layer === "snow") {
-      activeOverlays.snow = toggleRasterLayer(
-        "sentinel-ndsi",
-        SENTINEL_NDSI_URL,
-        0.7
-      );
-      btn.classList.toggle("active", activeOverlays.snow);
+      // Use the function to get current date for snow layer
+      activeOverlays.snow = toggleRasterLayer("snow", getSnowLayerUrl(), 0.7);
     }
 
     if (layer === "slope") {
       activeOverlays.slope = toggleSlopeLayer();
-      btn.classList.toggle("active", activeOverlays.slope);
     }
+
+    btn.classList.toggle("active", activeOverlays[layer]);
   };
 });
-
-
 
 searchResults.addEventListener("click", (e) => {
   const id = e.target.dataset.id;
