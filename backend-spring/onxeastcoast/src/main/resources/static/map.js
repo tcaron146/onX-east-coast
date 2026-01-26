@@ -17,6 +17,7 @@ let routeData = null;
 let metadata = null;
 let selectedRouteId = null;
 let terrainEnabled = true;
+let dataLoaded = false;
 
 let activeOverlays = {
   truecolor: false,
@@ -224,25 +225,35 @@ async function loadData() {
   routeData = await routesRes.json();
   metadata = await metadataRes.json();
 
-  map.on("load", () => {
-    add3DTerrain();
-    addRouteLayers();
-    addDrawControls();
+dataLoaded = true;
 
-    map.on("click", "route-hitbox", (e) => {
-      const feature = e.features[0];
-      highlightRoute(feature.properties.id);
-      showRouteInfo(feature);
-    });
+const initMapFeatures = () => {
+  add3DTerrain();
+  addRouteLayers();
+  addDrawControls();
 
-    map.on("mouseenter", "route-hitbox", () => {
-      map.getCanvas().style.cursor = "pointer";
-    });
-    map.on("mouseleave", "route-hitbox", () => {
-      map.getCanvas().style.cursor = "";
-    });
+  map.on("click", "route-hitbox", (e) => {
+    const feature = e.features[0];
+    highlightRoute(feature.properties.id);
+    showRouteInfo(feature);
   });
+
+  map.on("mouseenter", "route-hitbox", () => {
+    map.getCanvas().style.cursor = "pointer";
+  });
+
+  map.on("mouseleave", "route-hitbox", () => {
+    map.getCanvas().style.cursor = "";
+  });
+};
+
+if (map.isStyleLoaded()) {
+  initMapFeatures();
+} else {
+  map.once("load", initMapFeatures);
 }
+
+
 
 loadData();
 
@@ -288,12 +299,14 @@ toggle.onclick = () => {
   );
 
   map.once("styledata", () => {
-    // FIX: Remove draw controls before re-adding
     removeDrawControls();
-    
-    add3DTerrain();
-    addRouteLayers();
-    addDrawControls();
+
+      if (dataLoaded) {
+        add3DTerrain();
+        addRouteLayers();
+        addDrawControls();
+      }
+
     if (selectedRouteId) highlightRoute(selectedRouteId);
 
     if (activeOverlays.truecolor) {
