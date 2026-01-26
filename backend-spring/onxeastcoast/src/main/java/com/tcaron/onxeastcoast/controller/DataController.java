@@ -2,9 +2,12 @@ package com.tcaron.onxeastcoast.controller;
 
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.node.*;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 import java.io.IOException;
@@ -21,8 +24,9 @@ public class DataController {
     public JsonNode getRoutes(@RequestParam(required = false) String id)
             throws IOException {
 
-        Path path = Paths.get("..","..", "data", "routes.geojson");
-        JsonNode root = mapper.readTree(Files.readAllBytes(path));
+        ClassPathResource resource = new ClassPathResource("data/routes.geojson");
+        byte[] data = StreamUtils.copyToByteArray(resource.getInputStream());
+        JsonNode root = mapper.readTree(data);
 
         if (id == null) {
             return root;
@@ -42,14 +46,14 @@ public class DataController {
         ObjectNode out = mapper.createObjectNode();
         out.put("type", "FeatureCollection");
         out.set("features", filtered);
-
         return out;
     }
 
     @GetMapping("/metadata.json")
     public JsonNode getMetadata() throws IOException {
-        Path path = Paths.get("..","..", "data", "metadata.json");
-        return mapper.readTree(Files.readAllBytes(path));
+        ClassPathResource resource = new ClassPathResource("data/metadata.json");
+        byte[] data = StreamUtils.copyToByteArray(resource.getInputStream());
+        return mapper.readTree(data);
     }
 
     @GetMapping("/health")
