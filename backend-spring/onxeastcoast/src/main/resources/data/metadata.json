@@ -1,0 +1,920 @@
+[
+  {
+    "id": "KR-001",
+    "zone": "King Ravine",
+    "name": "East Gully",
+    "difficulty": "Advanced",
+    "vertical_drop": 1086.0,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "N",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 40,
+      "exposure": "Moderate"
+    }
+  },
+  {
+    "id": "KR-002",
+    "zone": "King Ravine",
+    "name": "Great Gully (Lower)",
+    "difficulty": "Advanced",
+    "vertical_drop": 321.5,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "NE",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 42,
+      "exposure": "High"
+    }
+  },
+  {
+    "id": "KR-003",
+    "zone": "King Ravine",
+    "name": "Iced Out",
+    "difficulty": "Advanced",
+    "vertical_drop": 905.5,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "N",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 43,
+      "exposure": "High"
+    }
+  },
+  {
+    "id": "KR-004",
+    "zone": "King Ravine",
+    "name": "The Muffin",
+    "difficulty": "Advanced",
+    "vertical_drop": 413.4,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "N",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 41,
+      "exposure": "Moderate"
+    }
+  },
+  {
+    "id": "KR-005",
+    "zone": "King Ravine",
+    "name": "Narrow Gully",
+    "difficulty": "Advanced",
+    "vertical_drop": 803.8,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 42,
+      "exposure": "Moderate"
+    }
+  },
+  {
+    "id": "KR-006",
+    "zone": "King Ravine",
+    "name": "Great Gully",
+    "difficulty": "Advanced",
+    "vertical_drop": 1056.4,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "NE",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 41,
+      "exposure": "Moderate"
+    }
+  },
+  {
+    "id": "KR-007",
+    "zone": "King Ravine",
+    "name": "West Gully",
+    "difficulty": "Advanced",
+    "vertical_drop": 718.5,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "NE",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 40,
+      "exposure": "Moderate"
+    }
+  },
+  {
+    "id": "CAS-001",
+    "zone": "Castle Ravine",
+    "name": "Baby Sister",
+    "difficulty": "Advanced",
+    "vertical_drop": 951.4,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "NW",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 38,
+      "exposure": "Low"
+    }
+  },
+  {
+    "id": "CAS-002",
+    "zone": "Castle Ravine",
+    "name": "Middle Sister",
+    "difficulty": "Advanced",
+    "vertical_drop": 485.5,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "NE",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 40,
+      "exposure": "Moderate"
+    }
+  },
+  {
+    "id": "CAS-003",
+    "zone": "Castle Ravine",
+    "name": "South Sister",
+    "difficulty": "Advanced",
+    "vertical_drop": 515.1,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "N",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 41,
+      "exposure": "High"
+    }
+  },
+  {
+    "id": "CAS-004",
+    "zone": "Castle Ravine",
+    "name": "North Sister",
+    "difficulty": "Advanced",
+    "vertical_drop": 839.9,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "NE",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 42,
+      "exposure": "High"
+    }
+  },
+  {
+    "id": "JEF-001",
+    "zone": "Jefferson Ravine",
+    "name": "Abbys Way",
+    "difficulty": "Advanced",
+    "vertical_drop": 1099.1,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "S",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 43,
+      "exposure": "High"
+    }
+  },
+  {
+    "id": "JEF-002",
+    "zone": "Jefferson Ravine",
+    "name": "Jefferson Headwall",
+    "difficulty": "Advanced",
+    "vertical_drop": 554.5,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "E",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 45,
+      "exposure": "High"
+    }
+  },
+  {
+    "id": "JEF-003",
+    "zone": "Jefferson Ravine",
+    "name": "Stealth Gully",
+    "difficulty": "Advanced",
+    "vertical_drop": 921.9,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "NE",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 42,
+      "exposure": "Moderate"
+    }
+  },
+  {
+    "id": "JEF-004",
+    "zone": "Jefferson Ravine",
+    "name": "The Beach",
+    "difficulty": "Advanced",
+    "vertical_drop": 187.0,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "E",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 36,
+      "exposure": "Low"
+    }
+  },
+  {
+    "id": "GG-001",
+    "zone": "Great Gulf",
+    "name": "Airplane Gully",
+    "difficulty": "Advanced",
+    "vertical_drop": 836.7,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "NE",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 40,
+      "exposure": "Moderate"
+    }
+  },
+  {
+    "id": "GG-002",
+    "zone": "Great Gulf",
+    "name": "Carousel Gully",
+    "difficulty": "Advanced",
+    "vertical_drop": 196.9,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "N",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 37,
+      "exposure": "Low"
+    }
+  },
+  {
+    "id": "GG-003",
+    "zone": "Great Gulf",
+    "name": "Drainpipe",
+    "difficulty": "Advanced",
+    "vertical_drop": 695.5,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "NE",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 43,
+      "exposure": "High"
+    }
+  },
+  {
+    "id": "GG-004",
+    "zone": "Great Gulf",
+    "name": "Junebug Gully",
+    "difficulty": "Advanced",
+    "vertical_drop": 357.6,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "N",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 36,
+      "exposure": "Low"
+    }
+  },
+  {
+    "id": "GG-005",
+    "zone": "Great Gulf",
+    "name": "Mother-in-Law Gully",
+    "difficulty": "Advanced",
+    "vertical_drop": 1591.2,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "NW",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 41,
+      "exposure": "Moderate"
+    }
+  },
+  {
+    "id": "GG-006",
+    "zone": "Great Gulf",
+    "name": "Pipeline Gully",
+    "difficulty": "Advanced",
+    "vertical_drop": 935.1,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "E",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 42,
+      "exposure": "High"
+    }
+  },
+  {
+    "id": "GG-007",
+    "zone": "Great Gulf",
+    "name": "Stinkbug Gully",
+    "difficulty": "Advanced",
+    "vertical_drop": 498.7,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "NE",
+    "hazards": [
+      "CD"
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 40,
+      "exposure": "Moderate"
+    }
+  },
+  {
+    "id": "GG-008",
+    "zone": "Great Gulf",
+    "name": "The Hidden Hallway",
+    "difficulty": "Advanced",
+    "vertical_drop": 1056.5,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "E",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 39,
+      "exposure": "Moderate"
+    }
+  },
+  {
+    "id": "GG-009",
+    "zone": "Great Gulf",
+    "name": "The Spacewalk",
+    "difficulty": "Advanced",
+    "vertical_drop": 377.3,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "N",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 43,
+      "exposure": "High"
+    }
+  },
+  {
+    "id": "GG-010",
+    "zone": "Great Gulf",
+    "name": "Turkey Chute",
+    "difficulty": "Advanced",
+    "vertical_drop": 711.9,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "NE",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 36,
+      "exposure": "Low"
+    }
+  },
+  {
+    "id": "GG-011",
+    "zone": "Great Gulf",
+    "name": "Turkey Feather",
+    "difficulty": "Advanced",
+    "vertical_drop": 626.6,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "NE",
+    "hazards": [
+      "T"
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 39,
+      "exposure": "Moderate"
+    }
+  },
+  {
+    "id": "GG-012",
+    "zone": "Great Gulf",
+    "name": "Activator Gully",
+    "difficulty": "Advanced",
+    "vertical_drop": 997.4,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "E",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 42,
+      "exposure": "High"
+    }
+  },
+  {
+    "id": "BR-001",
+    "zone": "Burt Ravine",
+    "name": "north branch",
+    "difficulty": "Advanced",
+    "vertical_drop": 1870.1,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "W",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 42,
+      "exposure": "High"
+    }
+  },
+  {
+    "id": "BR-002",
+    "zone": "Burt Ravine",
+    "name": "south branch",
+    "difficulty": "Advanced",
+    "vertical_drop": 1939.0,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "W",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 42,
+      "exposure": "High"
+    }
+  },
+  {
+    "id": "AR_001",
+    "zone": "Ammonoosuc Ravine",
+    "name": "south gully",
+    "difficulty": "Advanced",
+    "vertical_drop": 1063.0,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "W",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 42,
+      "exposure": "High"
+    }
+  },
+  {
+    "id": "AR_002",
+    "zone": "Ammonoosuc Ravine",
+    "name": "north branch",
+    "difficulty": "Advanced",
+    "vertical_drop": 1561.7,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "W",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 42,
+      "exposure": "High"
+    }
+  },
+  {
+    "id": "AR_003",
+    "zone": "Ammonoosuc Ravine",
+    "name": "central gully",
+    "difficulty": "Advanced",
+    "vertical_drop": 1151.6,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "W",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 42,
+      "exposure": "High"
+    }
+  },
+  {
+    "id": "MB-001",
+    "zone": "Monroe Brook",
+    "name": "monroe brook 1",
+    "difficulty": "Advanced",
+    "vertical_drop": 1259.9,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "NW",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 42,
+      "exposure": "High"
+    }
+  },
+  {
+    "id": "MB-002",
+    "zone": "Monroe Brook",
+    "name": "monroe brook 2",
+    "difficulty": "Advanced",
+    "vertical_drop": 216.5,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "NW",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 42,
+      "exposure": "High"
+    }
+  },
+  {
+    "id": "MF_001",
+    "zone": "Mount Franklin",
+    "name": "bifocal gully",
+    "difficulty": "Advanced",
+    "vertical_drop": 469.1,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "SE",
+    "hazards": [
+      "CD"
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 42,
+      "exposure": "High"
+    }
+  },
+  {
+    "id": "MF_002",
+    "zone": "Mount Franklin",
+    "name": "southern snowfields",
+    "difficulty": "Advanced",
+    "vertical_drop": 600.4,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "S",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 42,
+      "exposure": "High"
+    }
+  },
+  {
+    "id": "MF_003",
+    "zone": "Mount Franklin",
+    "name": "franklin headwall",
+    "difficulty": "Advanced",
+    "vertical_drop": 534.8,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "SE",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 42,
+      "exposure": "High"
+    }
+  },
+  {
+    "id": "MF_004",
+    "zone": "Mount Franklin",
+    "name": "kite string couloir",
+    "difficulty": "Advanced",
+    "vertical_drop": 590.6,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "SE",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 42,
+      "exposure": "High"
+    }
+  },
+  {
+    "id": "WC_001",
+    "zone": "Webster Cliffs",
+    "name": "central couloir",
+    "difficulty": "Advanced",
+    "vertical_drop": 1591.2,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "SW",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 42,
+      "exposure": "High"
+    }
+  },
+  {
+    "id": "WC_002",
+    "zone": "Webster Cliffs",
+    "name": "shoestring gully",
+    "difficulty": "Advanced",
+    "vertical_drop": 1499.3,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "SW",
+    "hazards": [
+      "T"
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 42,
+      "exposure": "High"
+    }
+  },
+  {
+    "id": "WC_003",
+    "zone": "Webster Cliffs",
+    "name": "greens chasm",
+    "difficulty": "Advanced",
+    "vertical_drop": 528.2,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "SW",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 42,
+      "exposure": "High"
+    }
+  },
+  {
+    "id": "WC_004",
+    "zone": "Webster Cliffs",
+    "name": "mountaineers route",
+    "difficulty": "Advanced",
+    "vertical_drop": 1607.6,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "SW",
+    "hazards": [
+      "CD"
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 42,
+      "exposure": "High"
+    }
+  },
+  {
+    "id": "WC_005",
+    "zone": "Webster Cliffs",
+    "name": "landslide gully",
+    "difficulty": "Advanced",
+    "vertical_drop": 1939.0,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "SW",
+    "hazards": [
+      "T"
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": 42,
+      "exposure": "High"
+    }
+  },
+  {
+    "id": "OG_001",
+    "zone": "Oakes Gulf",
+    "name": "airplane bowl",
+    "difficulty": "",
+    "vertical_drop": 813.7,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "SW",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": null,
+      "exposure": ""
+    }
+  },
+  {
+    "id": "OG_002",
+    "zone": "Oakes Gulf",
+    "name": "robinsons neighorhood",
+    "difficulty": "",
+    "vertical_drop": 380.5,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "SE",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": null,
+      "exposure": ""
+    }
+  },
+  {
+    "id": "OG_003",
+    "zone": "Oakes Gulf",
+    "name": "right buttress",
+    "difficulty": "",
+    "vertical_drop": 452.7,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "SW",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": null,
+      "exposure": ""
+    }
+  },
+  {
+    "id": "OG_004",
+    "zone": "Oakes Gulf",
+    "name": "main gully",
+    "difficulty": "",
+    "vertical_drop": 521.7,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "S",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": null,
+      "exposure": ""
+    }
+  },
+  {
+    "id": "OG_005",
+    "zone": "Oakes Gulf",
+    "name": "left buttress",
+    "difficulty": "",
+    "vertical_drop": 488.9,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "SW",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": null,
+      "exposure": ""
+    }
+  },
+  {
+    "id": "OG_006",
+    "zone": "Oakes Gulf",
+    "name": "double barrel west",
+    "difficulty": "",
+    "vertical_drop": 462.6,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "E",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": null,
+      "exposure": ""
+    }
+  },
+  {
+    "id": "OG_007",
+    "zone": "Oakes Gulf",
+    "name": "doublebarrel east",
+    "difficulty": "",
+    "vertical_drop": 269.1,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "E",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": null,
+      "exposure": ""
+    }
+  },
+  {
+    "id": "OG_008",
+    "zone": "Oakes Gulf",
+    "name": "central buttress",
+    "difficulty": "",
+    "vertical_drop": 475.7,
+    "vertical gain": "",
+    "approach": "",
+    "asp": "SW",
+    "hazards": [
+      ""
+    ],
+    "description": "",
+    "rating": {
+      "steepness_deg": null,
+      "exposure": ""
+    }
+  }
+]
