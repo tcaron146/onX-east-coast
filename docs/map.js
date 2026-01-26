@@ -1,3 +1,17 @@
+const IS_LOCAL = window.location.hostname === "localhost";
+
+const BACKEND_BASE = IS_LOCAL
+  ? "http://localhost:8081"
+  : null;
+
+  const ROUTES_URL = BACKEND_BASE
+    ? `${BACKEND_BASE}/routes`
+    : "data/routes.geojson";
+
+  const METADATA_URL = BACKEND_BASE
+    ? `${BACKEND_BASE}/metadata.json`
+    : "data/metadata.json";
+
 mapboxgl.accessToken =
   "pk.eyJ1IjoidGNhcm9uMTQ2IiwiYSI6ImNtaW5odm9rMTBkNGwzaXBtbGZnM3d6dzkifQ.HP_cVQrd9lMqYywOwF_Xzw";
 
@@ -203,8 +217,8 @@ function removeDrawControls() {
 
 async function loadData() {
   const [routesRes, metadataRes] = await Promise.all([
-    fetch("data/routes.geojson"),
-    fetch("data/metadata.json"),
+    fetch(ROUTES_URL),
+    fetch(METADATA_URL),
   ]);
 
   routeData = await routesRes.json();
@@ -224,11 +238,13 @@ async function loadData() {
     map.on("mouseenter", "route-hitbox", () => {
       map.getCanvas().style.cursor = "pointer";
     });
+
     map.on("mouseleave", "route-hitbox", () => {
       map.getCanvas().style.cursor = "";
     });
   });
 }
+
 
 loadData();
 
