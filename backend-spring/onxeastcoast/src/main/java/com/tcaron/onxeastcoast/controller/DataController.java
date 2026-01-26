@@ -25,7 +25,12 @@ public class DataController {
             throws IOException {
 
         ClassPathResource resource = new ClassPathResource("data/routes.geojson");
-        byte[] data = StreamUtils.copyToByteArray(resource.getInputStream());
+
+        if (!resource.exists()) {
+            throw new RuntimeException("routes.geojson not found on classpath");
+        }
+
+        byte[] data = resource.getInputStream().readAllBytes();
         JsonNode root = mapper.readTree(data);
 
         if (id == null) {
@@ -37,7 +42,7 @@ public class DataController {
 
         for (JsonNode feature : features) {
             JsonNode props = feature.get("properties");
-            if (props != null && id.equals(props.get("id").asText())) {
+            if (props != null && id.equals(props.path("id").asText())) {
                 filtered.add(feature);
                 break;
             }
@@ -49,12 +54,18 @@ public class DataController {
         return out;
     }
 
+
     @GetMapping("/metadata.json")
     public JsonNode getMetadata() throws IOException {
         ClassPathResource resource = new ClassPathResource("data/metadata.json");
-        byte[] data = StreamUtils.copyToByteArray(resource.getInputStream());
-        return mapper.readTree(data);
+
+        if (!resource.exists()) {
+            throw new RuntimeException("metadata.json not found on classpath");
+        }
+
+        return mapper.readTree(resource.getInputStream());
     }
+
 
     @GetMapping("/health")
     public Map<String, String> health() {
