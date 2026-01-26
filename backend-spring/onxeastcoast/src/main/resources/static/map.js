@@ -471,7 +471,6 @@ async function loadData() {
         return true;
     }
 
-// FIX: Improved toggleSlopeLayer function
     function toggleSlopeLayer() {
         if (map.getLayer("slope")) {
             map.removeLayer("slope");
