@@ -472,38 +472,56 @@ function toggleRasterLayer(id, tiles, opacity = 0.8) {
 }
 
 // FIX: Improved toggleSlopeLayer function
-function toggleSlopeLayer() {
-  if (map.getLayer("slope")) {
-    map.removeLayer("slope");
-    // Don't remove the mapbox-dem source since it's used for terrain
-    return false;
+  function toggleSlopeLayer() {
+    if (map.getLayer("slope")) {
+      map.removeLayer("slope");
+      return false;
+    }
+
+    // Ensure DEM exists
+    if (!map.getSource("mapbox-dem")) {
+      map.addSource("mapbox-dem", {
+        type: "raster-dem",
+        url: "mapbox://mapbox.terrain-rgb",
+        tileSize: 512,
+        maxzoom: 14,
+      });
+    }
+
+    map.addLayer(
+        {
+          id: "slope",
+          type: "raster",
+          source: "mapbox-dem",
+          paint: {
+            "raster-opacity": 0.75,
+
+            // SLOPE (degrees) COLOR RAMP
+            "raster-color": [
+              "interpolate",
+              ["linear"],
+              ["raster-value"],
+
+              0,  "#0a5f00",
+              10, "#0fa800",
+              20, "#4cd137",
+              25, "#c8e600",
+              28, "#ffd000",
+              30, "#ffb000",
+              32, "#ff8c00",
+              35, "#ff5a00",
+              38, "#ff0000",
+              40, "#d00000",
+              45, "#a00000",
+              50, "#5a0000"
+            ]
+          }
+        },
+        getFirstSymbolLayerId()
+    );
+
+    return true;
   }
-
-  // Make sure the DEM source exists
-  if (!map.getSource("mapbox-dem")) {
-    map.addSource("mapbox-dem", {
-      type: "raster-dem",
-      url: "mapbox://mapbox.terrain-rgb",
-      tileSize: 512,
-      maxzoom: 14,
-    });
-  }
-
-  map.addLayer(
-    {
-      id: "slope",
-      type: "hillshade",
-      source: "mapbox-dem",
-      paint: {
-        "hillshade-exaggeration": 0.8,
-        "hillshade-shadow-color": "rgba(255, 0, 0, 0.5)",
-      },
-    },
-    getFirstSymbolLayerId(),
-  );
-
-  return true;
-}
 
 document.querySelectorAll(".layer-btn").forEach((btn) => {
   btn.onclick = () => {
@@ -544,4 +562,4 @@ searchResults.addEventListener("click", (e) => {
 
   searchResults.style.display = "none";
   searchInput.value = "";
-});
+});}
