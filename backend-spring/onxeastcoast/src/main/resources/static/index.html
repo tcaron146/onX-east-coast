@@ -85,17 +85,17 @@
 <script src="map.js"></script>
 
 <script>
-      const enterBtn = document.getElementById("enter-map-btn");
-      const landing = document.getElementById("landing-screen");
+    const enterBtn = document.getElementById("enter-map-btn");
+    const landing = document.getElementById("landing-screen");
 
-      enterBtn.addEventListener("click", () => {
+    enterBtn.addEventListener("click", () => {
         landing.style.opacity = "0";
         landing.style.pointerEvents = "none";
 
         setTimeout(() => {
-          landing.style.display = "none";
+            landing.style.display = "none";
         }, 300);
-      });
+    });
 
 </script>
 </body>
