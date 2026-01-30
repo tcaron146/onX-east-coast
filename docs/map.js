@@ -157,16 +157,34 @@ function showDrawnRouteInfo(feature) {
 }
 
 function saveDrawnRoute(feature) {
+  const length = getLineLengthMiles(feature);
+  const elev = getElevationStats(feature);
+
   const saved = JSON.parse(localStorage.getItem("drawnRoutes") || "[]");
 
+  const id = crypto.randomUUID();
+
   saved.push({
-    id: crypto.randomUUID(),
+    id,
     created: Date.now(),
-    feature,
+    feature: {
+      ...feature,
+      properties: {
+        ...feature.properties,
+        __drawnRouteId: id, // 🔑 link
+      },
+    },
+    stats: {
+      length,
+      vertical: elev?.vertical ?? null,
+      gain: elev?.gain ?? null,
+      loss: elev?.loss ?? null,
+    },
   });
 
   localStorage.setItem("drawnRoutes", JSON.stringify(saved));
 }
+
 
 
 
@@ -312,13 +330,102 @@ function addDrawControls() {
   document.querySelector(".mapboxgl-ctrl-top-left").style.zIndex = "9999";
 }
 
+let restoredDrawnRoutes = [];
+
 function restoreDrawnRoutes() {
-  const saved = JSON.parse(localStorage.getItem("drawnRoutes") || "[]");
-  saved.forEach(r => draw.add(r.feature));
+  restoredDrawnRoutes = JSON.parse(
+    localStorage.getItem("drawnRoutes") || "[]"
+  );
+
+  restoredDrawnRoutes.forEach(r => {
+    draw.add(r.feature);
+  });
 }
 
+map.on("draw.selectionchange", (e) => {
+  if (!e.features.length) return;
 
-// NEW: Function to remove draw controls
+  const feature = e.features[0];
+
+  if (feature.properties?.__drawnRouteId) {
+    showSavedDrawnRouteInfo(feature);
+  }
+});
+
+function showSavedDrawnRouteInfo(feature) {
+  const info = document.getElementById("info");
+
+  const saved = restoredDrawnRoutes.find(
+    r => r.id === feature.properties.__drawnRouteId
+  );
+
+  if (!saved) return;
+
+  const { length, vertical, gain, loss } = saved.stats;
+
+  info.innerHTML = `
+    <div class="route-card expanded">
+      <div class="route-header">
+        <div>
+          <div class="route-title">Custom Route</div>
+          <div class="route-subtitle">Saved</div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+
+      <div class="route-body">
+        <div class="route-row">
+          <span>Length</span>
+          <span>${length} mi</span>
+        </div>
+        <div class="route-row">
+          <span>Vertical</span>
+          <span>${vertical ?? "—"} ft</span>
+        </div>
+        <div class="route-row">
+          <span>Gain</span>
+          <span>${gain ?? "—"} ft</span>
+        </div>
+        <div class="route-row">
+          <span>Loss</span>
+          <span>${loss ?? "—"} ft</span>
+        </div>
+      </div>
+    </div>
+  `;
+
+  const card = info.querySelector(".route-card");
+  const header = info.querySelector(".route-header");
+
+  header.onclick = () => {
+    card.classList.toggle("collapsed");
+  };
+}
+
+map.on("draw.update", (e) => {
+  const feature = e.features[0];
+  const id = feature.properties?.__drawnRouteId;
+  if (!id) return;
+
+  const elev = getElevationStats(feature);
+  const length = getLineLengthMiles(feature);
+
+  const saved = JSON.parse(localStorage.getItem("drawnRoutes") || "[]");
+  const idx = saved.findIndex(r => r.id === id);
+
+  if (idx !== -1) {
+    saved[idx].feature = feature;
+    saved[idx].stats = {
+      length,
+      vertical: elev?.vertical ?? null,
+      gain: elev?.gain ?? null,
+      loss: elev?.loss ?? null,
+    };
+
+    localStorage.setItem("drawnRoutes", JSON.stringify(saved));
+  }
+});
+
 function removeDrawControls() {
   if (!drawAdded) return;
 
