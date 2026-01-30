@@ -63,8 +63,113 @@ const draw = new MapboxDraw({
 
 map.on("draw.create", (e) => {
   const feature = e.features[0];
-  downloadDrawnRoute(feature);
+
+  showDrawnRouteInfo(feature);
+  saveDrawnRoute(feature); // optional, see section 4
 });
+
+function getLineLengthMiles(line) {
+  const km = turf.length(line, { units: "kilometers" });
+  return (km * 0.621371).toFixed(2);
+}
+
+function getElevationStats(line) {
+  const sampled = turf.lineChunk(line, 0.05, { units: "kilometers" });
+  const elevations = [];
+
+  sampled.features.forEach(seg => {
+    seg.geometry.coordinates.forEach(coord => {
+      const elev = map.queryTerrainElevation(coord);
+      if (typeof elev === "number") elevations.push(elev);
+    });
+  });
+
+  if (!elevations.length) return null;
+
+  let gain = 0;
+  let loss = 0;
+
+  for (let i = 1; i < elevations.length; i++) {
+    const d = elevations[i] - elevations[i - 1];
+    if (d > 0) gain += d;
+    else loss += Math.abs(d);
+  }
+
+  return {
+    min: Math.min(...elevations),
+    max: Math.max(...elevations),
+    gain: Math.round(gain),
+    loss: Math.round(loss),
+    vertical: Math.round(Math.max(...elevations) - Math.min(...elevations)),
+  };
+}
+
+function showDrawnRouteInfo(feature) {
+  const info = document.getElementById("info");
+
+  const length = getLineLengthMiles(feature);
+  const elev = getElevationStats(feature);
+
+  info.innerHTML = `
+    <div class="route-card expanded">
+      <div class="route-header">
+        <div>
+          <div class="route-title">Custom Route</div>
+          <div class="route-subtitle">User Drawn</div>
+        </div>
+        <div class="chevron">⌄</div>
+      </div>
+
+      <div class="route-body">
+        <div class="route-row">
+          <span>Length</span>
+          <span>${length} mi</span>
+        </div>
+
+        ${
+          elev
+            ? `
+          <div class="route-row">
+            <span>Vertical</span>
+            <span>${elev.vertical} ft</span>
+          </div>
+          <div class="route-row">
+            <span>Gain</span>
+            <span>${elev.gain} ft</span>
+          </div>
+          <div class="route-row">
+            <span>Loss</span>
+            <span>${elev.loss} ft</span>
+          </div>
+        `
+            : `<div class="route-row"><span>Elevation</span><span>Unavailable</span></div>`
+        }
+      </div>
+    </div>
+  `;
+
+  const card = info.querySelector(".route-card");
+  const header = info.querySelector(".route-header");
+
+  header.onclick = () => {
+    card.classList.toggle("collapsed");
+  };
+}
+
+function saveDrawnRoute(feature) {
+  const saved = JSON.parse(localStorage.getItem("drawnRoutes") || "[]");
+
+  saved.push({
+    id: crypto.randomUUID(),
+    created: Date.now(),
+    feature,
+  });
+
+  localStorage.setItem("drawnRoutes", JSON.stringify(saved));
+}
+
+
+
 
 function downloadDrawnRoute(feature) {
   const name =
@@ -207,6 +312,12 @@ function addDrawControls() {
   document.querySelector(".mapboxgl-ctrl-top-left").style.zIndex = "9999";
 }
 
+function restoreDrawnRoutes() {
+  const saved = JSON.parse(localStorage.getItem("drawnRoutes") || "[]");
+  saved.forEach(r => draw.add(r.feature));
+}
+
+
 // NEW: Function to remove draw controls
 function removeDrawControls() {
   if (!drawAdded) return;
@@ -228,6 +339,8 @@ async function loadData() {
     add3DTerrain();
     addRouteLayers();
     addDrawControls();
+    restoreDrawnRoutes();
+
 
     map.on("click", "route-hitbox", (e) => {
       const feature = e.features[0];
