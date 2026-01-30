@@ -249,32 +249,42 @@ async function loadData() {
 loadData();
 
 function showRouteInfo(feature) {
-  const props = feature.properties;
-  const meta = metadata.find((m) => m.id === props.id) || {};
+  const props = feature.properties || {};
+
+  const meta = metadata.find(
+    m => m.name === props.name
+  ) || {};
+
   const info = document.getElementById("info");
 
-  info.innerHTML = `
-    <button id="close-info" style="
-      float:right;
-      border:none;
-      background:#e74c3c;
-      color:white;
-      font-weight:bold;
-      padding:2px 6px;
-      border-radius:3px;
-      cursor:pointer;
-    ">×</button>
+  const difficulty = meta.difficulty || "Unknown";
+  const vertical =
+    meta.vertical_drop != null
+      ? Math.round(meta.vertical_drop)
+      : "Unknown";
 
-    <div class="route-title">${props.name}</div>
-    <div><strong>Difficulty:</strong> ${meta.difficulty || "Unknown"}</div>
-    <div><strong>Vertical:</strong> ${meta.vertical_drop || "Unknown"} ft</div>
-    <div><strong>Hazards:</strong> ${meta.hazards || "None"}</div>
+  const hazards =
+    Array.isArray(meta.hazards) &&
+    meta.hazards.some(h => h.trim() !== "")
+      ? meta.hazards.join(", ")
+      : null;
+
+  info.innerHTML = `
+    <button id="close-info" class="close-btn">×</button>
+
+    <div class="route-title">${meta.name || "Unnamed Route"}</div>
+
+    <div><strong>Difficulty:</strong> ${difficulty}</div>
+    <div><strong>Vertical:</strong> ${vertical} ft</div>
+
+    ${hazards ? `<div><strong>Hazards:</strong> ${hazards}</div>` : ""}
   `;
 
   document.getElementById("close-info").onclick = () => {
     info.innerHTML = "Click a route to see details";
   };
 }
+
 
 const toggle = document.getElementById("map-style-toggle");
 let current = "topo";
