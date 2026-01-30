@@ -248,66 +248,75 @@ async function loadData() {
 
 loadData();
 
+function normalize(str) {
+  return str?.toLowerCase().trim();
+}
+
 function showRouteInfo(feature) {
   const props = feature.properties || {};
 
-  const meta = metadata.find(
-    m => m.name === props.name
-  ) || {};
+  const meta =
+    metadata.find(
+      m => normalize(m.name) === normalize(props.name)
+    ) || {};
 
   const info = document.getElementById("info");
 
-  const difficulty = meta.difficulty || "Unknown";
+  const difficulty =
+    typeof meta.difficulty === "string" && meta.difficulty.trim() !== ""
+      ? meta.difficulty
+      : "Unknown";
+
   const vertical =
-    meta.vertical_drop != null
+    typeof meta.vertical_drop === "number" && !isNaN(meta.vertical_drop)
       ? Math.round(meta.vertical_drop)
       : "Unknown";
 
   const hazards =
     Array.isArray(meta.hazards) &&
-      meta.hazards.some(h => h.trim() !== "")
+    meta.hazards.some(h => h.trim() !== "")
       ? meta.hazards.join(", ")
       : null;
 
   info.innerHTML = `
-  <div class="route-card expanded">
-    <div class="route-header">
-      <div>
-        <div class="route-title">${meta.name}</div>
-        <div class="route-subtitle">${meta.zone || ""}</div>
+    <div class="route-card expanded">
+      <div class="route-header">
+        <div>
+          <div class="route-title">${meta.name || props.name}</div>
+          <div class="route-subtitle">${meta.zone || ""}</div>
+        </div>
+        <div class="chevron">⌄</div>
       </div>
-      <div class="chevron">⌄</div>
+
+      <div class="route-body">
+        <div class="route-row">
+          <span>Difficulty</span>
+          <span class="badge">${difficulty}</span>
+        </div>
+
+        <div class="route-row">
+          <span>Vertical</span>
+          <span>${vertical} ft</span>
+        </div>
+
+        ${hazards ? `
+          <div class="route-row hazard">
+            <span>Hazards</span>
+            <span>${hazards}</span>
+          </div>
+        ` : ""}
+      </div>
     </div>
-
-    <div class="route-body">
-      <div class="route-row">
-        <span>Difficulty</span>
-        <span class="badge">${difficulty}</span>
-      </div>
-
-      <div class="route-row">
-        <span>Vertical</span>
-        <span>${vertical} ft</span>
-      </div>
-
-      ${hazards
-      ? `<div class="route-row hazard">
-              <span>Hazards</span>
-              <span>${hazards}</span>
-            </div>`
-      : ""
-    }
-    </div>
-  </div>
-`;
+  `;
 
   const card = info.querySelector(".route-card");
   const header = info.querySelector(".route-header");
 
-  header.addEventListener("click", () => {
+  header.onclick = () => {
     card.classList.toggle("collapsed");
-  });
+  };
 }
+
 
 
 const toggle = document.getElementById("map-style-toggle");
