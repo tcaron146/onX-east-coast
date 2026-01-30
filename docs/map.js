@@ -4,13 +4,13 @@ const BACKEND_BASE = IS_LOCAL
   ? "http://localhost:8081"
   : null;
 
-  const ROUTES_URL = BACKEND_BASE
-    ? `${BACKEND_BASE}/routes`
-    : "data/routes.geojson";
+const ROUTES_URL = BACKEND_BASE
+  ? `${BACKEND_BASE}/routes`
+  : "data/routes.geojson";
 
-  const METADATA_URL = BACKEND_BASE
-    ? `${BACKEND_BASE}/metadata.json`
-    : "data/metadata.json";
+const METADATA_URL = BACKEND_BASE
+  ? `${BACKEND_BASE}/metadata.json`
+  : "data/metadata.json";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoidGNhcm9uMTQ2IiwiYSI6ImNtaW5odm9rMTBkNGwzaXBtbGZnM3d6dzkifQ.HP_cVQrd9lMqYywOwF_Xzw";
@@ -210,7 +210,7 @@ function addDrawControls() {
 // NEW: Function to remove draw controls
 function removeDrawControls() {
   if (!drawAdded) return;
-  
+
   map.removeControl(draw);
   drawAdded = false;
 }
@@ -265,24 +265,48 @@ function showRouteInfo(feature) {
 
   const hazards =
     Array.isArray(meta.hazards) &&
-    meta.hazards.some(h => h.trim() !== "")
+      meta.hazards.some(h => h.trim() !== "")
       ? meta.hazards.join(", ")
       : null;
 
   info.innerHTML = `
-    <button id="close-info" class="close-btn">×</button>
+  <div class="route-card expanded">
+    <div class="route-header">
+      <div>
+        <div class="route-title">${meta.name}</div>
+        <div class="route-subtitle">${meta.zone || ""}</div>
+      </div>
+      <div class="chevron">⌄</div>
+    </div>
 
-    <div class="route-title">${meta.name || "Unnamed Route"}</div>
+    <div class="route-body">
+      <div class="route-row">
+        <span>Difficulty</span>
+        <span class="badge">${difficulty}</span>
+      </div>
 
-    <div><strong>Difficulty:</strong> ${difficulty}</div>
-    <div><strong>Vertical:</strong> ${vertical} ft</div>
+      <div class="route-row">
+        <span>Vertical</span>
+        <span>${vertical} ft</span>
+      </div>
 
-    ${hazards ? `<div><strong>Hazards:</strong> ${hazards}</div>` : ""}
-  `;
+      ${hazards
+      ? `<div class="route-row hazard">
+              <span>Hazards</span>
+              <span>${hazards}</span>
+            </div>`
+      : ""
+    }
+    </div>
+  </div>
+`;
 
-  document.getElementById("close-info").onclick = () => {
-    info.innerHTML = "Click a route to see details";
-  };
+  const card = info.querySelector(".route-card");
+  const header = info.querySelector(".route-header");
+
+  header.addEventListener("click", () => {
+    card.classList.toggle("collapsed");
+  });
 }
 
 
@@ -301,7 +325,7 @@ toggle.onclick = () => {
 
   map.once("styledata", () => {
     removeDrawControls();
-    
+
     add3DTerrain();
     addRouteLayers();
     addDrawControls();

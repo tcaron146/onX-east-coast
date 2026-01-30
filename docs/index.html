@@ -174,17 +174,16 @@
       }
 
       .landing-content h1 {
-  font-size: 52px;
-  margin-bottom: 12px;
-}
+        font-size: 52px;
+        margin-bottom: 12px;
+      }
 
-.subtitle {
-  font-size: 17px;
-  opacity: 0.9;
-  margin-bottom: 36px;
-  line-height: 1.6;
-}
-
+      .subtitle {
+        font-size: 17px;
+        opacity: 0.9;
+        margin-bottom: 36px;
+        line-height: 1.6;
+      }
 
       /* ENTER MAP BUTTON */
       #enter-map-btn {
@@ -320,6 +319,77 @@
         display: inline-block;
         border-radius: 3px;
       }
+
+      /* ROUTE CARD */
+      .route-card {
+        border-radius: 10px;
+        background: #fff;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+        overflow: hidden;
+        font-size: 14px;
+      }
+
+      /* HEADER (clickable) */
+      .route-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 14px;
+        cursor: pointer;
+        background: linear-gradient(180deg, #f8f8f8, #f1f1f1);
+      }
+
+      .route-title {
+        font-weight: 600;
+        font-size: 16px;
+      }
+
+      .route-subtitle {
+        font-size: 12px;
+        color: #666;
+      }
+
+      /* BODY */
+      .route-body {
+        padding: 12px 14px;
+        border-top: 1px solid #eee;
+      }
+
+      .route-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 6px 0;
+      }
+
+      /* Difficulty badge */
+      .badge {
+        background: #2c2c2c;
+        color: white;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 500;
+      }
+
+      /* Hazard emphasis */
+      .route-row.hazard span:last-child {
+        color: #c0392b;
+        font-weight: 600;
+      }
+
+      /* Chevron animation */
+      .chevron {
+        font-size: 16px;
+        transition: transform 0.2s ease;
+      }
+
+      .route-card.collapsed .route-body {
+        display: none;
+      }
+
+      .route-card.collapsed .chevron {
+        transform: rotate(-90deg);
+      }
     </style>
   </head>
 
@@ -366,7 +436,6 @@
     <!-- SIDEBAR -->
     <div class="sidebar" id="info">Click a route to see details</div>
 
-    
     <script src="map.js"></script>
 
     <script>
