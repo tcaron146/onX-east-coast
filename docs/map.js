@@ -290,7 +290,6 @@ toggle.onclick = () => {
   );
 
   map.once("styledata", () => {
-    // FIX: Remove draw controls before re-adding
     removeDrawControls();
     
     add3DTerrain();
@@ -403,64 +402,7 @@ function updateHighlightedItem(items) {
     });
   }
 }
-const SENTINEL_INSTANCE_ID = "cd70df88-be3e-4fce-8a0b-92732b9f6e42";
 
-// Alternative: Using public satellite imagery services
-// TRUE COLOR: Recent Sentinel-2 imagery
-const TRUE_COLOR_URL = 
-  `https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2022_3857/default/g/{z}/{y}/{x}.jpg`;
-
-// SNOW: MODIS snow cover (updated daily)
-const SNOW_URL = 
-  `https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_Snow_Cover/default/{time}/GoogleMapsCompatible_Level8/{z}/{y}/{x}.png`;
-
-// For snow layer, we need to add a time parameter
-function getSnowLayerUrl() {
-  const today = new Date();
-  const timeStr = today.toISOString().split('T')[0];
-  return SNOW_URL.replace('{time}', timeStr);
-}
-
-function getFirstSymbolLayerId() {
-  const layers = map.getStyle().layers;
-  for (const layer of layers) {
-    if (layer.type === "symbol") return layer.id;
-  }
-  return null;
-}
-
-function toggleRasterLayer(id, tiles, opacity = 0.8) {
-  if (map.getLayer(id)) {
-    map.removeLayer(id);
-    map.removeSource(id);
-    console.log(`Removed layer: ${id}`);
-    return false;
-  }
-
-  console.log(`Adding layer: ${id} with tiles:`, tiles);
-
-  map.addSource(id, {
-    type: "raster",
-    tiles: [tiles],
-    tileSize: 256,
-    scheme: "xyz"
-  });
-
-  map.addLayer(
-    {
-      id,
-      type: "raster",
-      source: id,
-      paint: { "raster-opacity": opacity },
-    },
-    getFirstSymbolLayerId(),
-  );
-
-  console.log(`Layer ${id} added successfully`);
-  return true;
-}
-
-// FIX: Improved toggleSlopeLayer function
 function toggleSlopeLayer() {
   if (map.getLayer("slope")) {
     map.removeLayer("slope");
@@ -497,19 +439,6 @@ function toggleSlopeLayer() {
 document.querySelectorAll(".layer-btn").forEach((btn) => {
   btn.onclick = () => {
     const layer = btn.dataset.layer;
-
-    if (layer === "truecolor") {
-      activeOverlays.truecolor = toggleRasterLayer(
-        "truecolor",
-        TRUE_COLOR_URL,
-        0.9,
-      );
-    }
-
-    if (layer === "snow") {
-      // Use the function to get current date for snow layer
-      activeOverlays.snow = toggleRasterLayer("snow", getSnowLayerUrl(), 0.7);
-    }
 
     if (layer === "slope") {
       activeOverlays.slope = toggleSlopeLayer();
