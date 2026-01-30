@@ -74,6 +74,8 @@ function getLineLengthMiles(line) {
 }
 
 function getElevationStats(line) {
+  if (!map.getTerrain()) return null;
+
   const sampled = turf.lineChunk(line, 0.05, { units: "kilometers" });
   const elevations = [];
 
@@ -96,11 +98,9 @@ function getElevationStats(line) {
   }
 
   return {
-    min: Math.min(...elevations),
-    max: Math.max(...elevations),
+    vertical: Math.round(Math.max(...elevations) - Math.min(...elevations)),
     gain: Math.round(gain),
     loss: Math.round(loss),
-    vertical: Math.round(Math.max(...elevations) - Math.min(...elevations)),
   };
 }
 
